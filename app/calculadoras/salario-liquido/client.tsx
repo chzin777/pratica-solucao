@@ -31,6 +31,7 @@ export default function Calculadora() {
     <CalcShell
       titulo="Calculadora de Salário Líquido"
       descricao="Informe seu salário bruto e descubra quanto cai na conta após INSS e Imposto de Renda (tabelas de 2026)."
+      signature={r ? JSON.stringify(r) : null}
     >
       <div className="grid gap-4 sm:grid-cols-2">
         <CampoMoeda label="Salário bruto" value={bruto} onChange={setBruto} />

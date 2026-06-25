@@ -31,6 +31,7 @@ export default function Calculadora() {
     <CalcShell
       titulo="Calculadora de Custo de Funcionário"
       descricao="Veja quanto um empregado CLT custa de fato para a empresa, somando encargos e provisões de 13º, férias e FGTS (2026)."
+      signature={r ? JSON.stringify(r) : null}
     >
       <div className="space-y-5">
         <CampoOpcoes

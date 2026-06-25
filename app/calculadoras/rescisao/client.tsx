@@ -68,6 +68,7 @@ export default function Calculadora() {
     <CalcShell
       titulo="Calculadora de Rescisão"
       descricao="Estime as verbas rescisórias conforme o tipo de desligamento, com descontos de INSS e IRRF e multa do FGTS (2026)."
+      signature={r ? JSON.stringify(r) : null}
     >
       <div className="space-y-5">
         <CampoOpcoes

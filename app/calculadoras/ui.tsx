@@ -4,6 +4,7 @@ import Link from "next/link";
 import type { ReactNode } from "react";
 import SplitText from "../components/SplitText";
 import Reveal from "../components/Reveal";
+import { useCalcTracker } from "./CalcPopup";
 
 export const WHATSAPP =
   "https://wa.me/5562982103699?text=Ol%C3%A1!%20Usei%20a%20calculadora%20no%20site%20e%20gostaria%20de%20falar%20com%20um%20especialista.";
@@ -13,19 +14,36 @@ export function CalcShell({
   titulo,
   descricao,
   children,
+  signature = null,
 }: {
   titulo: string;
   descricao: string;
   children: ReactNode;
+  /** Assinatura serializável do resultado, p/ contagem de cálculos. */
+  signature?: string | null;
 }) {
+  useCalcTracker(signature);
   return (
     <section className="bg-slate-50 py-16">
       <div className="mx-auto max-w-3xl px-6">
         <Link
           href="/calculadoras"
-          className="text-sm font-medium text-brand hover:text-brand-dark"
+          className="group inline-flex items-center gap-2 rounded-full border border-slate-200 bg-white px-4 py-2 text-sm font-medium text-slate-600 shadow-sm transition-colors hover:border-brand/40 hover:text-brand"
         >
-          ← Todas as calculadoras
+          <svg
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            className="h-4 w-4 transition-transform group-hover:-translate-x-0.5"
+            aria-hidden="true"
+          >
+            <path d="M19 12H5" />
+            <path d="m12 19-7-7 7-7" />
+          </svg>
+          Todas as calculadoras
         </Link>
         <SplitText
           text={titulo}

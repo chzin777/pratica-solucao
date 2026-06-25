@@ -17,6 +17,22 @@
   --font-sans: var(--font-geist-sans);
 }
 
+@theme {
+  --animate-pulse-ring: pulse-ring 2s ease-out infinite;
+
+  @keyframes pulse-ring {
+    0% {
+      box-shadow: 0 0 0 0 rgba(255, 255, 255, 0.5);
+    }
+    70% {
+      box-shadow: 0 0 0 14px rgba(255, 255, 255, 0);
+    }
+    100% {
+      box-shadow: 0 0 0 0 rgba(255, 255, 255, 0);
+    }
+  }
+}
+
 html {
   scroll-behavior: smooth;
 }

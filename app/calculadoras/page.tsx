@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import SplitText from "../components/SplitText";
 import Reveal from "../components/Reveal";
+import { WHATSAPP } from "./ui";
 
 export const metadata: Metadata = {
   title: "Calculadoras Trabalhistas Gratuitas | Prática Soluções",
@@ -100,6 +101,27 @@ export default function CalculadorasIndex() {
             </Reveal>
           ))}
         </div>
+
+        <Reveal>
+          <div className="mt-14 overflow-hidden rounded-3xl bg-brand-deep p-8 text-center text-white sm:p-12">
+            <h2 className="text-2xl font-bold tracking-tight sm:text-3xl">
+              Quer parar de calcular no chute?
+            </h2>
+            <p className="mx-auto mt-3 max-w-xl text-sky-50/90">
+              A Prática Soluções assume folha, rescisões e rotinas trabalhistas
+              da sua empresa. Fale agora com um especialista e receba um
+              diagnóstico gratuito.
+            </p>
+            <a
+              href={WHATSAPP}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="mt-7 inline-flex h-12 items-center justify-center rounded-full bg-white px-8 text-sm font-semibold tracking-wide text-brand-deep transition-colors hover:bg-sky-50"
+            >
+              FALAR COM ESPECIALISTA NO WHATSAPP
+            </a>
+          </div>
+        </Reveal>
       </div>
     </section>
   );

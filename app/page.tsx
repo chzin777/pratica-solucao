@@ -1,43 +1,109 @@
 import Link from "next/link";
+import Image from "next/image";
 import Header from "./Header";
 import SplitText from "./components/SplitText";
 import Reveal from "./components/Reveal";
 import CountUp from "./components/CountUp";
+import HeroGeometric from "./components/HeroGeometric";
+import { Testimonials, type Testimonial } from "./components/Testimonials";
+import SiteFooter from "./components/SiteFooter";
+import AbstractBG from "./components/AbstractBG";
+import Quiz from "./components/Quiz";
 
 const WHATSAPP =
   "https://wa.me/5562982103699?text=Ol%C3%A1!%20Gostaria%20de%20saber%20mais%20sobre%20os%20servi%C3%A7os.";
 
+/** Link de WhatsApp com mensagem de orçamento para um serviço específico. */
+function orcamentoUrl(servico: string) {
+  const msg = `Olá! Gostaria de solicitar um orçamento para: ${servico}.`;
+  return `https://wa.me/5562982103699?text=${encodeURIComponent(msg)}`;
+}
+
 const SERVICES = [
   {
     title: "Consultoria em SST",
-    desc: "Orientações especializadas para garantir um ambiente laboral seguro, com avaliação de riscos e conformidade legal.",
+    desc: "Mantenha sua empresa em conformidade e protegida de multas. Cuidamos de toda a segurança e saúde do trabalho, do laudo ao envio no eSocial.",
     items: [
-      "Elaboração de laudos e envios mensais",
+      "Laudos técnicos e envios mensais sem atraso",
       "PGR, PCMSO, LTCAT, PMOC, PGES e PGRSS",
-      "eSocial: S-2210, S-2220 e S-2240",
+      "eSocial SST: S-2210, S-2220 e S-2240",
     ],
   },
   {
     title: "Terceirização de Folha de Pagamento",
-    desc: "Terceirize o departamento pessoal da sua empresa ou contabilidade e dê adeus à burocracia.",
+    desc: "Tire o peso do departamento pessoal das suas costas. Assumimos a folha da sua empresa ou contabilidade com precisão e prazos garantidos.",
     items: [
-      "Responsabilidade nos processos e cálculos do DP",
-      "Gestão completa das rotinas trabalhistas",
-      "Relatórios atualizados e consultoria especializada",
+      "Cálculos de folha, férias e rescisões sem erro",
+      "Gestão completa das rotinas e obrigações trabalhistas",
+      "Relatórios claros e consultoria sempre que precisar",
     ],
   },
   {
     title: "Certificado Digital",
-    desc: "O certificado digital é a identidade das pessoas e empresas no meio eletrônico.",
+    desc: "Assine documentos e acesse serviços com total segurança. Emitimos seu certificado digital de forma rápida, online ou presencial.",
     items: [
-      "Emissão online e presencial",
-      "e-CPF A1 e e-CNPJ A1",
-      "Atendimento ágil e seguro",
+      "Emissão no mesmo dia, online ou presencial",
+      "e-CPF e e-CNPJ (modelos A1 e A3)",
+      "Suporte humano em cada etapa do processo",
     ],
   },
 ];
 
-const EXTRAS = [
+const DEPOIMENTOS: Testimonial[] = [
+  {
+    name: "Mariana Alves",
+    role: "Sócia · Mercado São José",
+    text: "Terceirizamos a folha e o eSocial com a Prática e nunca mais tivemos dor de cabeça com prazos. Atendimento rápido e tudo certo todo mês.",
+  },
+  {
+    name: "Rodrigo Teixeira",
+    role: "Diretor · Construtora Horizonte",
+    text: "O cadastro de obra e os laudos de SST saíram sem nenhum problema com a fiscalização. Equipe que realmente entende do assunto.",
+  },
+  {
+    name: "Camila Nogueira",
+    role: "Gerente de RH · Rede Bem Estar",
+    text: "Migramos o departamento pessoal e a transição foi tranquila. Relatórios claros e consultoria sempre que precisamos.",
+  },
+  {
+    name: "Felipe Andrade",
+    role: "Proprietário · Oficina Andrade",
+    text: "Abri minha empresa com eles do zero. Explicaram o melhor tipo societário e cuidaram de toda a burocracia.",
+  },
+  {
+    name: "Patrícia Lima",
+    role: "Contadora · Lima Contabilidade",
+    text: "Indico a Prática para vários clientes. A terceirização do DP é precisa e me poupa muito tempo.",
+  },
+  {
+    name: "Bruno Carvalho",
+    role: "CEO · TechFlow Sistemas",
+    text: "O certificado digital saiu no mesmo dia e o suporte foi excelente. Profissionais ágeis e atenciosos.",
+  },
+  {
+    name: "Juliana Prado",
+    role: "Administradora · Clínica Vida",
+    text: "PGR, PCMSO e os envios mensais sempre em dia. Tirou um peso enorme da nossa rotina.",
+  },
+  {
+    name: "Anderson Souza",
+    role: "Gestor · Distribuidora Souza",
+    text: "Suporte humano de verdade no WhatsApp. Resolvem rápido e sem enrolação.",
+  },
+];
+
+const EXTRAS: {
+  title: string;
+  desc: string;
+  href?: string;
+  cta?: string;
+}[] = [
+  {
+    title: "Emissão de NFe",
+    desc: "Emita suas notas fiscais eletrônicas de forma simples e rápida com a nossa plataforma online.",
+    href: "https://easy-nfe-twam.vercel.app",
+    cta: "Acessar plataforma",
+  },
   {
     title: "Abertura de Empresa",
     desc: "Indicação do tipo societário para otimização fiscal e execução completa do processo de abertura.",
@@ -51,6 +117,50 @@ const EXTRAS = [
     desc: "Escritório virtual com recebimento de correspondências, gestão online e redução de custos.",
   },
 ];
+
+const DIFERENCIAIS: { titulo: string; desc: string; paths: string[] }[] = [
+  {
+    titulo: "Suporte humano de verdade",
+    desc: "Você fala com gente que entende, no WhatsApp, sem robô e sem enrolação.",
+    paths: ["M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"],
+  },
+  {
+    titulo: "Prazos sempre cumpridos",
+    desc: "Folha, eSocial e laudos entregues no prazo. Nada de correria de última hora.",
+    paths: ["M12 6v6l4 2", "M12 22a10 10 0 1 0 0-20 10 10 0 0 0 0 20z"],
+  },
+  {
+    titulo: "Especialistas em DP e SST",
+    desc: "Equipe que domina folha, rotinas trabalhistas e segurança do trabalho.",
+    paths: ["M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z", "m9 12 2 2 4-4"],
+  },
+  {
+    titulo: "100% online e sem burocracia",
+    desc: "Atendemos a sua empresa de onde você estiver, com tudo digital.",
+    paths: [
+      "M12 22a10 10 0 1 0 0-20 10 10 0 0 0 0 20z",
+      "M2 12h20",
+      "M12 2a15 15 0 0 1 0 20 15 15 0 0 1 0-20z",
+    ],
+  },
+];
+
+const COMPARATIVO = {
+  sem: [
+    "Folha e eSocial atrasam e geram multa",
+    "Dúvida trabalhista sem ninguém pra responder",
+    "Risco de processo por erro no DP",
+    "Tempo perdido com burocracia em vez do negócio",
+    "Laudos de SST vencidos sem você perceber",
+  ],
+  com: [
+    "Folha, férias e eSocial sempre em dia",
+    "Especialista no WhatsApp quando você precisa",
+    "Cálculos conferidos — sem passivo trabalhista",
+    "Você foca em vender, a gente cuida do resto",
+    "SST monitorada e dentro da lei o ano todo",
+  ],
+};
 
 function Check() {
   return (
@@ -75,71 +185,82 @@ export default function Home() {
       <Header />
 
       {/* HERO */}
-      <section
-        id="home"
-        className="relative overflow-hidden bg-gradient-to-br from-brand-deep via-brand-dark to-brand text-white"
-      >
-        <div className="mx-auto max-w-6xl px-6 py-28 sm:py-36">
-          <div className="max-w-2xl">
+      <HeroGeometric />
+
+      {/* MÉTRICAS */}
+      <section className="bg-brand-deep text-white">
+        <div className="mx-auto grid max-w-6xl grid-cols-3 gap-4 px-5 py-12 text-center sm:gap-8 sm:px-6 sm:py-16">
+          {[
+            { to: 6, suffix: "+", label: "Soluções empresariais" },
+            { to: 3, suffix: "", label: "Áreas de atuação" },
+            { to: 100, suffix: "%", label: "Atendimento online" },
+          ].map((m, i) => (
+            <Reveal key={m.label} delay={i * 0.1}>
+              <div>
+                <p className="text-3xl font-bold text-white sm:text-5xl">
+                  <CountUp to={m.to} duration={1.5} />
+                  {m.suffix}
+                </p>
+                <p className="mt-2 text-[11px] font-medium uppercase tracking-wide text-sky-200 sm:text-sm sm:tracking-widest">
+                  {m.label}
+                </p>
+              </div>
+            </Reveal>
+          ))}
+        </div>
+      </section>
+
+      {/* DIFERENCIAIS */}
+      <section className="relative overflow-hidden py-20 sm:py-24">
+        <AbstractBG />
+        <div className="mx-auto max-w-6xl px-5 sm:px-6">
+          <div className="mx-auto max-w-2xl text-center">
             <Reveal direction="down">
-              <p className="mb-4 text-sm font-semibold uppercase tracking-widest text-sky-200">
-                Soluções empresariais
+              <p className="mb-3 text-sm font-semibold uppercase tracking-widest text-brand">
+                Por que a Prática
               </p>
             </Reveal>
             <SplitText
-              text="Conheça nossas soluções para seu negócio"
-              tag="h1"
-              textAlign="left"
-              className="text-4xl font-bold leading-tight tracking-tight sm:text-5xl"
-              splitType="words"
-              delay={40}
-              duration={0.9}
-              from={{ opacity: 0, y: 40 }}
-              to={{ opacity: 1, y: 0 }}
+              text="O que faz a diferença"
+              tag="h2"
+              className="text-3xl font-bold tracking-tight text-brand-deep sm:text-4xl"
+              splitType="chars"
+              delay={25}
+              duration={0.7}
             />
-            <Reveal delay={0.2}>
-              <p className="mt-6 text-lg leading-8 text-sky-50/90">
-                Consultoria especializada e muito mais soluções para seu
-                negócio.
+            <Reveal delay={0.15}>
+              <p className="mt-4 text-base text-slate-600 sm:text-lg">
+                Mais que serviço contábil: um time que cuida da sua empresa como
+                se fosse a própria.
               </p>
             </Reveal>
-            <Reveal delay={0.35}>
-              <div className="mt-10 flex flex-col gap-4 sm:flex-row">
-                <a
-                  href="#servicos"
-                  className="flex h-12 items-center justify-center rounded-full bg-white px-7 text-sm font-semibold tracking-wide text-brand-deep transition-colors hover:bg-sky-50"
-                >
-                  NOSSOS SERVIÇOS
-                </a>
-                <a
-                  href={WHATSAPP}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="flex h-12 items-center justify-center rounded-full border border-white/40 px-7 text-sm font-semibold tracking-wide text-white transition-colors hover:bg-white/10"
-                >
-                  FALAR NO WHATSAPP
-                </a>
-              </div>
-            </Reveal>
           </div>
-        </div>
 
-        {/* MÉTRICAS */}
-        <div className="border-t border-white/10">
-          <div className="mx-auto grid max-w-6xl grid-cols-1 gap-8 px-6 py-12 text-center sm:grid-cols-3">
-            {[
-              { to: 6, suffix: "+", label: "Soluções empresariais" },
-              { to: 3, suffix: "", label: "Áreas de atuação" },
-              { to: 100, suffix: "%", label: "Atendimento online" },
-            ].map((m, i) => (
-              <Reveal key={m.label} delay={i * 0.1}>
-                <div>
-                  <p className="text-4xl font-bold text-white sm:text-5xl">
-                    <CountUp to={m.to} duration={1.5} />
-                    {m.suffix}
-                  </p>
-                  <p className="mt-2 text-sm font-medium uppercase tracking-widest text-sky-200">
-                    {m.label}
+          <div className="mt-12 grid gap-5 sm:mt-16 sm:grid-cols-2 lg:grid-cols-4">
+            {DIFERENCIAIS.map((d, i) => (
+              <Reveal key={d.titulo} delay={i * 0.1} direction="up">
+                <div className="h-full rounded-2xl border border-slate-200 bg-white/80 p-6 shadow-sm backdrop-blur-sm transition-shadow hover:shadow-md">
+                  <span className="flex h-12 w-12 items-center justify-center rounded-xl bg-brand/10">
+                    <svg
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="1.8"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      className="h-6 w-6 text-brand"
+                      aria-hidden="true"
+                    >
+                      {d.paths.map((p) => (
+                        <path key={p} d={p} />
+                      ))}
+                    </svg>
+                  </span>
+                  <h3 className="mt-4 text-lg font-semibold text-brand-deep">
+                    {d.titulo}
+                  </h3>
+                  <p className="mt-2 text-sm leading-relaxed text-slate-600">
+                    {d.desc}
                   </p>
                 </div>
               </Reveal>
@@ -149,8 +270,8 @@ export default function Home() {
       </section>
 
       {/* SERVIÇOS */}
-      <section id="servicos" className="bg-slate-50 py-24">
-        <div className="mx-auto max-w-6xl px-6">
+      <section id="servicos" className="bg-slate-50 py-20 sm:py-24">
+        <div className="mx-auto max-w-6xl px-5 sm:px-6">
           <div className="mx-auto max-w-2xl text-center">
             <SplitText
               text="Nossos Serviços"
@@ -170,7 +291,7 @@ export default function Home() {
           <div className="mt-16 grid gap-8 md:grid-cols-3">
             {SERVICES.map((s, i) => (
               <Reveal key={s.title} delay={i * 0.12}>
-                <div className="flex h-full flex-col rounded-2xl border border-slate-200 bg-white p-8 shadow-sm transition-shadow hover:shadow-md">
+                <div className="flex h-full flex-col rounded-2xl border border-slate-200 bg-white p-6 shadow-sm transition-shadow hover:shadow-md sm:p-8">
                   <h3 className="text-xl font-semibold text-brand-deep">
                     {s.title}
                   </h3>
@@ -183,17 +304,16 @@ export default function Home() {
                       </li>
                     ))}
                   </ul>
-                </div>
-              </Reveal>
-            ))}
-          </div>
-
-          <div className="mt-12 grid gap-6 md:grid-cols-3">
-            {EXTRAS.map((e, i) => (
-              <Reveal key={e.title} delay={i * 0.12} direction="up">
-                <div className="h-full rounded-xl border border-slate-200 bg-white p-6">
-                  <h4 className="font-semibold text-slate-900">{e.title}</h4>
-                  <p className="mt-2 text-sm text-slate-600">{e.desc}</p>
+                  <div className="mt-auto pt-8">
+                    <a
+                      href={orcamentoUrl(s.title)}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex h-11 w-full items-center justify-center rounded-full bg-brand px-6 text-sm font-semibold tracking-wide text-white transition-colors hover:bg-brand-dark"
+                    >
+                      Solicitar orçamento
+                    </a>
+                  </div>
                 </div>
               </Reveal>
             ))}
@@ -201,9 +321,285 @@ export default function Home() {
         </div>
       </section>
 
+      {/* COMPARATIVO */}
+      <section className="bg-brand-deep py-20 text-white sm:py-24">
+        <div className="mx-auto max-w-5xl px-5 sm:px-6">
+          <div className="mx-auto max-w-2xl text-center">
+            <SplitText
+              text="A diferença no dia a dia"
+              tag="h2"
+              className="text-3xl font-bold tracking-tight text-white sm:text-4xl"
+              splitType="chars"
+              delay={25}
+              duration={0.7}
+            />
+            <Reveal delay={0.15}>
+              <p className="mt-4 text-base text-sky-100/80 sm:text-lg">
+                Veja como a rotina da sua empresa muda com a Prática cuidando de
+                tudo.
+              </p>
+            </Reveal>
+          </div>
+
+          <div className="mt-12 grid gap-5 sm:mt-16 md:grid-cols-2">
+            {/* SEM */}
+            <Reveal direction="right">
+              <div className="h-full rounded-2xl border border-white/10 bg-white/[0.04] p-6 sm:p-8">
+                <h3 className="flex items-center gap-2 text-lg font-semibold text-rose-200">
+                  <span className="flex h-7 w-7 items-center justify-center rounded-full bg-rose-400/20">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" className="h-4 w-4" aria-hidden="true">
+                      <path d="M18 6 6 18M6 6l12 12" />
+                    </svg>
+                  </span>
+                  Sem a Prática
+                </h3>
+                <ul className="mt-5 space-y-3">
+                  {COMPARATIVO.sem.map((t) => (
+                    <li key={t} className="flex gap-3 text-sm text-sky-100/70">
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" className="mt-0.5 h-4 w-4 shrink-0 text-rose-300/70" aria-hidden="true">
+                        <path d="M18 6 6 18M6 6l12 12" />
+                      </svg>
+                      <span>{t}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </Reveal>
+
+            {/* COM */}
+            <Reveal direction="left">
+              <div className="h-full rounded-2xl border border-[#7fb2d8]/40 bg-[#7fb2d8]/10 p-6 shadow-lg shadow-black/20 sm:p-8">
+                <h3 className="flex items-center gap-2 text-lg font-semibold text-[#9ecbe8]">
+                  <span className="flex h-7 w-7 items-center justify-center rounded-full bg-[#7fb2d8]/30">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="h-4 w-4" aria-hidden="true">
+                      <path d="M20 6 9 17l-5-5" />
+                    </svg>
+                  </span>
+                  Com a Prática
+                </h3>
+                <ul className="mt-5 space-y-3">
+                  {COMPARATIVO.com.map((t) => (
+                    <li key={t} className="flex gap-3 text-sm text-white">
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="mt-0.5 h-4 w-4 shrink-0 text-[#7fb2d8]" aria-hidden="true">
+                        <path d="M20 6 9 17l-5-5" />
+                      </svg>
+                      <span>{t}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </Reveal>
+          </div>
+
+          <Reveal delay={0.2}>
+            <div className="mt-10 text-center">
+              <a
+                href="#diagnostico"
+                className="inline-flex h-12 items-center justify-center rounded-full bg-white px-8 text-sm font-semibold tracking-wide text-brand-deep transition-colors hover:bg-sky-50"
+              >
+                QUERO ESSA TRANQUILIDADE
+              </a>
+            </div>
+          </Reveal>
+        </div>
+      </section>
+
+      {/* SOLUÇÕES + DEPOIMENTOS sobre fundo abstrato */}
+      <div className="relative overflow-hidden">
+      <AbstractBG />
+
+      {/* SOLUÇÕES */}
+      <section id="solucoes" className="py-20 sm:py-24">
+        <div className="mx-auto max-w-6xl px-5 sm:px-6">
+          <div className="mx-auto max-w-2xl text-center">
+            <Reveal direction="down">
+              <p className="mb-3 text-sm font-semibold uppercase tracking-widest text-brand">
+                Vai além da folha
+              </p>
+            </Reveal>
+            <SplitText
+              text="Outras Soluções"
+              tag="h2"
+              className="text-3xl font-bold tracking-tight text-brand-deep sm:text-4xl"
+              splitType="chars"
+              delay={30}
+              duration={0.7}
+            />
+            <Reveal delay={0.15}>
+              <p className="mt-4 text-lg text-slate-600">
+                Serviços extras para tirar do papel e manter a sua empresa em dia.
+              </p>
+            </Reveal>
+          </div>
+
+          <div className="mt-16 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+            {EXTRAS.map((e, i) => (
+              <Reveal key={e.title} delay={i * 0.12} direction="up">
+                <div className="flex h-full flex-col rounded-2xl border border-slate-200 bg-white p-8 shadow-sm transition-shadow hover:shadow-md">
+                  <h3 className="text-xl font-semibold text-brand-deep">
+                    {e.title}
+                  </h3>
+                  <p className="mt-3 text-slate-600">{e.desc}</p>
+                  {e.href && (
+                    <div className="mt-auto pt-6">
+                      <a
+                        href={e.href}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex h-11 w-full items-center justify-center gap-2 whitespace-nowrap rounded-full bg-brand px-5 text-sm font-semibold tracking-wide text-white transition-colors hover:bg-brand-dark"
+                      >
+                        {e.cta ?? "Acessar"}
+                        <svg
+                          viewBox="0 0 24 24"
+                          fill="none"
+                          stroke="currentColor"
+                          strokeWidth="2"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          className="h-4 w-4"
+                          aria-hidden="true"
+                        >
+                          <path d="M7 17 17 7" />
+                          <path d="M7 7h10v10" />
+                        </svg>
+                      </a>
+                    </div>
+                  )}
+                </div>
+              </Reveal>
+            ))}
+          </div>
+
+          <Reveal delay={0.2}>
+            <div className="mt-12 text-center">
+              <a
+                href={WHATSAPP}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex h-12 items-center justify-center rounded-full bg-brand px-8 text-sm font-semibold tracking-wide text-white transition-colors hover:bg-brand-dark"
+              >
+                FALAR COM ESPECIALISTA
+              </a>
+            </div>
+          </Reveal>
+        </div>
+      </section>
+
+      {/* DEPOIMENTOS */}
+      <section id="depoimentos" className="py-20 sm:py-24">
+        <div className="mx-auto max-w-6xl px-5 sm:px-6">
+          <Testimonials testimonials={DEPOIMENTOS} maxDisplayed={6} />
+        </div>
+      </section>
+      </div>
+
+      {/* CERTIFICADO DIGITAL */}
+      <section id="certificado" className="bg-slate-50 py-20 sm:py-24">
+        <div className="mx-auto max-w-6xl px-5 sm:px-6">
+          <div className="grid items-center gap-10 lg:grid-cols-2 lg:gap-16">
+            <Reveal direction="right">
+              <div className="relative overflow-hidden rounded-3xl shadow-xl">
+                <Image
+                  src="/certificado-digital.webp"
+                  alt="Certificado digital e-CPF e e-CNPJ"
+                  width={800}
+                  height={500}
+                  className="h-full w-full object-cover"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-brand-deep/30 to-transparent" />
+              </div>
+            </Reveal>
+
+            <div>
+              <Reveal direction="down">
+                <p className="mb-3 text-sm font-semibold uppercase tracking-widest text-brand">
+                  Certificado Digital
+                </p>
+              </Reveal>
+              <SplitText
+                text="Sua identidade digital, sem complicação"
+                tag="h2"
+                textAlign="left"
+                className="text-3xl font-bold tracking-tight text-brand-deep sm:text-4xl"
+                splitType="words"
+                delay={30}
+                duration={0.7}
+              />
+              <Reveal delay={0.15}>
+                <p className="mt-4 text-base text-slate-600 sm:text-lg">
+                  Emita seu e-CPF ou e-CNPJ com agilidade e segurança. Assine
+                  documentos, acesse o eSocial e a Receita e mantenha tudo em
+                  conformidade — online ou presencial.
+                </p>
+              </Reveal>
+
+              <ul className="mt-6 space-y-3 text-sm text-slate-700 sm:text-base">
+                {[
+                  "Emissão no mesmo dia, online ou presencial",
+                  "e-CPF e e-CNPJ (modelos A1 e A3)",
+                  "Suporte humano em cada etapa",
+                ].map((it) => (
+                  <Reveal key={it}>
+                    <li className="flex gap-2">
+                      <Check />
+                      <span>{it}</span>
+                    </li>
+                  </Reveal>
+                ))}
+              </ul>
+
+              <Reveal delay={0.2}>
+                <a
+                  href={orcamentoUrl("Certificado Digital")}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="mt-8 inline-flex h-12 items-center justify-center rounded-full bg-brand px-8 text-sm font-semibold tracking-wide text-white transition-colors hover:bg-brand-dark"
+                >
+                  Emitir meu certificado
+                </a>
+              </Reveal>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* DIAGNÓSTICO (QUIZ) */}
+      <section id="diagnostico" className="relative overflow-hidden py-20 sm:py-24">
+        <AbstractBG />
+        <div className="mx-auto max-w-6xl px-5 sm:px-6">
+          <div className="mx-auto max-w-2xl text-center">
+            <Reveal direction="down">
+              <p className="mb-3 text-sm font-semibold uppercase tracking-widest text-brand">
+                Diagnóstico grátis em 30 segundos
+              </p>
+            </Reveal>
+            <SplitText
+              text="Descubra como podemos ajudar"
+              tag="h2"
+              className="text-3xl font-bold tracking-tight text-brand-deep sm:text-4xl"
+              splitType="chars"
+              delay={25}
+              duration={0.7}
+            />
+            <Reveal delay={0.15}>
+              <p className="mt-4 text-lg text-slate-600">
+                Responda 3 perguntas rápidas e fale com um especialista já
+                sabendo da sua situação — sem repetir nada.
+              </p>
+            </Reveal>
+          </div>
+
+          <Reveal delay={0.2}>
+            <div className="mt-12">
+              <Quiz />
+            </div>
+          </Reveal>
+        </div>
+      </section>
+
       {/* CALCULADORAS */}
-      <section id="calculadoras" className="py-24">
-        <div className="mx-auto max-w-6xl px-6">
+      <section id="calculadoras" className="py-20 sm:py-24">
+        <div className="mx-auto max-w-6xl px-5 sm:px-6">
           <div className="mx-auto max-w-2xl text-center">
             <Reveal direction="down">
               <p className="mb-3 text-sm font-semibold uppercase tracking-widest text-brand">
@@ -262,8 +658,8 @@ export default function Home() {
       </section>
 
       {/* ESTÁGIO */}
-      <section id="estagio" className="py-24">
-        <div className="mx-auto max-w-6xl px-6">
+      <section id="estagio" className="py-20 sm:py-24">
+        <div className="mx-auto max-w-6xl px-5 sm:px-6">
           <Reveal>
             <div className="overflow-hidden rounded-3xl bg-brand-deep px-8 py-16 text-white sm:px-16">
               <div className="max-w-2xl">
@@ -301,8 +697,8 @@ export default function Home() {
       </section>
 
       {/* CONTATO */}
-      <section id="contato" className="bg-slate-50 py-24">
-        <div className="mx-auto max-w-6xl px-6">
+      <section id="contato" className="bg-slate-50 py-20 sm:py-24">
+        <div className="mx-auto max-w-6xl px-5 sm:px-6">
           <div className="mx-auto max-w-2xl text-center">
             <SplitText
               text="Fale Conosco"
@@ -341,14 +737,7 @@ export default function Home() {
       </section>
 
       {/* FOOTER */}
-      <footer className="bg-brand-deep py-10 text-center text-sm text-sky-100">
-        <div className="mx-auto max-w-6xl px-6">
-          <p className="font-semibold tracking-wide text-white">
-            PRÁTICA · SOLUÇÕES EMPRESARIAIS
-          </p>
-          <p className="mt-2 text-sky-200/80">© 2025 — Todos os direitos reservados.</p>
-        </div>
-      </footer>
+      <SiteFooter />
     </>
   );
 }

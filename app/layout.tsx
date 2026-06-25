@@ -1,6 +1,13 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Geist } from "next/font/google";
 import "./globals.css";
+import FloatingWhats from "./components/FloatingWhats";
+
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  maximumScale: 5,
+};
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -26,9 +33,13 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="pt-BR" className={`${geistSans.variable} h-full antialiased`}>
-      <body className="min-h-full flex flex-col bg-white text-slate-900">
+    <html
+      lang="pt-BR"
+      className={`${geistSans.variable} h-full overflow-x-hidden scroll-smooth scroll-pt-24 antialiased`}
+    >
+      <body className="min-h-full flex flex-col overflow-x-hidden bg-white text-slate-900">
         {children}
+        <FloatingWhats />
       </body>
     </html>
   );

@@ -23,9 +23,9 @@ function offsetFor(dir: Direction) {
 }
 
 /**
- * Envolve qualquer bloco com animação de entrada E saída conforme o scroll.
- * Reanima sempre que entra/sai da viewport (viewport.once = false).
- * Respeita "prefers-reduced-motion".
+ * Envolve qualquer bloco com animação de entrada conforme o scroll.
+ * Anima uma única vez (viewport.once = true) para evitar flicker ao rolar
+ * perto do limiar da viewport. Respeita "prefers-reduced-motion".
  */
 export default function Reveal({
   children,
@@ -68,7 +68,7 @@ export default function Reveal({
       variants={variants}
       initial="hidden"
       whileInView="visible"
-      viewport={{ once: false, amount }}
+      viewport={{ once: true, amount, margin: "0px 0px -10% 0px" }}
     >
       {children}
     </MotionTag>
