@@ -22,7 +22,7 @@ export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   title: {
     default:
-      "Prática Soluções Empresariais | Departamento Pessoal e SST em Goiânia",
+      "Prática Soluções Empresariais | Soluções em Contabilidade e Departamento Pessoal em Goiânia",
     template: "%s | Prática Soluções Empresariais",
   },
   description: DESCRICAO,
@@ -59,7 +59,7 @@ export const metadata: Metadata = {
     url: SITE_URL,
     siteName: "Prática Soluções Empresariais",
     title:
-      "Prática Soluções Empresariais | Departamento Pessoal e SST em Goiânia",
+      "Prática Soluções Empresariais | Soluções em Contabilidade e Departamento Pessoal em Goiânia",
     description: DESCRICAO,
     images: [
       {
@@ -73,7 +73,7 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
     title:
-      "Prática Soluções Empresariais | Departamento Pessoal e SST em Goiânia",
+      "Prática Soluções Empresariais | Soluções em Contabilidade e Departamento Pessoal em Goiânia",
     description: DESCRICAO,
     images: ["/logo.png"],
   },
