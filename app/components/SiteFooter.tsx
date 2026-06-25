@@ -142,7 +142,7 @@ export function SiteFooter() {
                 <span className="mt-0.5 text-sky-300">
                   <IconMail />
                 </span>
-                contato@praticasolucoes.com.br
+                contato@praticasolucao.com.br
               </li>
               <li className="flex items-start gap-3">
                 <span className="mt-0.5 text-sky-300">

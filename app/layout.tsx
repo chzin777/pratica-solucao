@@ -14,7 +14,7 @@ const geistSans = Geist({
   subsets: ["latin"],
 });
 
-const SITE_URL = "https://praticasolucoes.com.br";
+const SITE_URL = "https://praticasolucao.com.br";
 const DESCRICAO =
   "Terceirização de folha de pagamento, departamento pessoal, consultoria em SST, eSocial, certificado digital e abertura de empresa em Goiânia. Prazos cumpridos e suporte humano. Atendimento 100% online.";
 
@@ -96,7 +96,7 @@ const JSON_LD = {
   description: DESCRICAO,
   url: SITE_URL,
   telephone: "+55-62-98210-3699",
-  email: "contato@praticasolucoes.com.br",
+  email: "contato@praticasolucao.com.br",
   areaServed: "BR",
   address: {
     "@type": "PostalAddress",
