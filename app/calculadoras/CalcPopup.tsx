@@ -11,8 +11,8 @@ import {
 import { AnimatePresence, motion } from "motion/react";
 import { WHATSAPP } from "./ui";
 
-const COUNT_KEY = "calc_count";
-const SHOWN_KEY = "calc_popup_shown"; // thresholds já exibidos, ex: "1,7"
+const COUNT_KEY = "calc_count_v2";
+const SHOWN_KEY = "calc_popup_shown_v2"; // thresholds já exibidos, ex: "1,7"
 const THRESHOLDS = [1, 7];
 
 type Ctx = { registrarCalculo: () => void };
@@ -36,13 +36,13 @@ export function CalcPopupProvider({ children }: { children: React.ReactNode }) {
     const atual = Number(localStorage.getItem(COUNT_KEY) ?? "0") + 1;
     localStorage.setItem(COUNT_KEY, String(atual));
 
-    if (THRESHOLDS.includes(atual)) {
-      const shown = lerShown();
-      if (!shown.has(atual)) {
-        shown.add(atual);
-        localStorage.setItem(SHOWN_KEY, [...shown].join(","));
-        setAberto(true);
-      }
+    // Mostra o menor limiar ainda não exibido que já foi alcançado.
+    const shown = lerShown();
+    const pendente = THRESHOLDS.find((t) => atual >= t && !shown.has(t));
+    if (pendente != null) {
+      shown.add(pendente);
+      localStorage.setItem(SHOWN_KEY, [...shown].join(","));
+      setAberto(true);
     }
   }, []);
 

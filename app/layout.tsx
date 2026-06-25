@@ -14,17 +14,106 @@ const geistSans = Geist({
   subsets: ["latin"],
 });
 
+const SITE_URL = "https://praticasolucoes.com.br";
+const DESCRICAO =
+  "Terceirização de folha de pagamento, departamento pessoal, consultoria em SST, eSocial, certificado digital e abertura de empresa em Goiânia. Prazos cumpridos e suporte humano. Atendimento 100% online.";
+
 export const metadata: Metadata = {
-  title: "Prática Soluções Empresariais | Consultoria para seu negócio",
-  description:
-    "Consultoria especializada em SST, terceirização de folha de pagamento, certificado digital, abertura de empresa e endereço fiscal. Soluções práticas para o seu negócio.",
-  openGraph: {
-    title: "Prática Soluções Empresariais",
-    description:
-      "Consultoria especializada e muito mais soluções para seu negócio.",
-    locale: "pt_BR",
-    type: "website",
+  metadataBase: new URL(SITE_URL),
+  title: {
+    default:
+      "Prática Soluções Empresariais | Departamento Pessoal e SST em Goiânia",
+    template: "%s | Prática Soluções Empresariais",
   },
+  description: DESCRICAO,
+  applicationName: "Prática Soluções Empresariais",
+  authors: [{ name: "Prática Soluções Empresariais" }],
+  generator: "Next.js",
+  keywords: [
+    "terceirização de folha de pagamento",
+    "departamento pessoal",
+    "consultoria em SST",
+    "segurança do trabalho",
+    "eSocial",
+    "PGR PCMSO LTCAT",
+    "certificado digital",
+    "e-CPF e-CNPJ",
+    "abertura de empresa",
+    "cadastro de obra CNO",
+    "endereço fiscal",
+    "folha de pagamento Goiânia",
+    "contabilidade trabalhista",
+    "rotinas trabalhistas",
+    "calculadora trabalhista",
+    "Prática Soluções Empresariais",
+    "Goiânia",
+    "Goiás",
+  ],
+  category: "business",
+  alternates: {
+    canonical: "/",
+  },
+  openGraph: {
+    type: "website",
+    locale: "pt_BR",
+    url: SITE_URL,
+    siteName: "Prática Soluções Empresariais",
+    title:
+      "Prática Soluções Empresariais | Departamento Pessoal e SST em Goiânia",
+    description: DESCRICAO,
+    images: [
+      {
+        url: "/logo.png",
+        width: 240,
+        height: 120,
+        alt: "Prática Soluções Empresariais",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title:
+      "Prática Soluções Empresariais | Departamento Pessoal e SST em Goiânia",
+    description: DESCRICAO,
+    images: ["/logo.png"],
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+    },
+  },
+};
+
+const JSON_LD = {
+  "@context": "https://schema.org",
+  "@type": "ProfessionalService",
+  name: "Prática Soluções Empresariais",
+  description: DESCRICAO,
+  url: SITE_URL,
+  telephone: "+55-62-98210-3699",
+  email: "contato@praticasolucoes.com.br",
+  areaServed: "BR",
+  address: {
+    "@type": "PostalAddress",
+    addressLocality: "Goiânia",
+    addressRegion: "GO",
+    addressCountry: "BR",
+  },
+  sameAs: ["https://wa.me/5562982103699"],
+  priceRange: "$$",
+  knowsAbout: [
+    "Terceirização de folha de pagamento",
+    "Departamento pessoal",
+    "Consultoria em SST",
+    "eSocial",
+    "Certificado digital",
+    "Abertura de empresa",
+  ],
 };
 
 export default function RootLayout({
@@ -38,6 +127,10 @@ export default function RootLayout({
       className={`${geistSans.variable} h-full overflow-x-hidden scroll-smooth scroll-pt-24 antialiased`}
     >
       <body className="min-h-full flex flex-col overflow-x-hidden bg-white text-slate-900">
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(JSON_LD) }}
+        />
         {children}
         <FloatingWhats />
       </body>
