@@ -3,6 +3,7 @@ import Header from "../../Header";
 import SiteFooter from "../../components/SiteFooter";
 import Reveal from "../../components/Reveal";
 import SplitText from "../../components/SplitText";
+import HeroEndomarketing from "./HeroEndomarketing";
 
 export const metadata: Metadata = {
   title: "Endomarketing Terceirizado em Goiânia",
@@ -127,86 +128,7 @@ export default function EndomarketingPage() {
       <Header />
 
       {/* HERO */}
-      <section className="relative overflow-hidden bg-[#0D243B] pt-32 pb-20 text-white sm:pt-40 sm:pb-28">
-        <div className="mx-auto max-w-6xl px-5 sm:px-6">
-          <div className="grid items-center gap-12 lg:grid-cols-2">
-            <div className="flex flex-col gap-6">
-              <Reveal direction="down">
-                <p className="text-sm font-bold uppercase tracking-[0.12em] text-[#87B1D7]">
-                  Endomarketing Terceirizado
-                </p>
-              </Reveal>
-              <SplitText
-                text="Engaje seus colaboradores sem sobrecarregar o RH"
-                tag="h1"
-                textAlign="left"
-                className="text-4xl font-extrabold leading-tight tracking-tight sm:text-5xl"
-                splitType="words"
-                delay={25}
-                duration={0.7}
-              />
-              <Reveal delay={0.15}>
-                <p className="max-w-xl text-lg text-[#B9CBDD]">
-                  Planejamos, criamos e executamos a comunicação interna da sua
-                  empresa. Do diagnóstico à mensuração, com foco em resultados
-                  reais de engajamento.
-                </p>
-              </Reveal>
-              <Reveal delay={0.25}>
-                <div className="flex flex-wrap gap-3 pt-2">
-                  <a
-                    href={WHATSAPP_ENDOMARKETING}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-flex h-12 items-center justify-center rounded-lg bg-[#87B1D7] px-6 text-sm font-bold uppercase tracking-wide text-[#0D243B] transition-colors hover:bg-[#a3c5e3]"
-                  >
-                    Quero saber mais
-                  </a>
-                  <a
-                    href="#servicos"
-                    className="inline-flex h-12 items-center justify-center rounded-lg border border-[#244563] px-6 text-sm font-bold uppercase tracking-wide text-white transition-colors hover:border-[#87B1D7] hover:text-[#87B1D7]"
-                  >
-                    Ver o que fazemos
-                  </a>
-                </div>
-              </Reveal>
-            </div>
-
-            <Reveal direction="left" delay={0.2}>
-              <div className="overflow-hidden rounded-xl border border-[#244563] bg-[#14314F] p-8 shadow-2xl">
-                <h3 className="text-lg font-bold text-white">
-                  O que entregamos
-                </h3>
-                <ul className="mt-6 space-y-4">
-                  {[
-                    "Estratégia de comunicação alinhada ao negócio",
-                    "Conteúdo profissional e humanizado",
-                    "Gestão de canais internos",
-                    "Relatórios de impacto e ROI",
-                  ].map((item) => (
-                    <li key={item} className="flex items-start gap-3">
-                      <svg
-                        className="mt-0.5 h-5 w-5 shrink-0 text-[#87B1D7]"
-                        fill="none"
-                        viewBox="0 0 24 24"
-                        stroke="currentColor"
-                        strokeWidth={2}
-                      >
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          d="M5 13l4 4L19 7"
-                        />
-                      </svg>
-                      <span className="text-sm text-[#B9CBDD]">{item}</span>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            </Reveal>
-          </div>
-        </div>
-      </section>
+      <HeroEndomarketing />
 
       {/* SERVIÇOS */}
       <section id="servicos" className="py-20 sm:py-24">
