@@ -22,6 +22,21 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.7,
       freq: "monthly" as const,
     },
+    {
+      path: "/servicos/auditoria-departamento-pessoal",
+      priority: 0.8,
+      freq: "monthly" as const,
+    },
+    {
+      path: "/servicos/endomarketing-terceirizado",
+      priority: 0.8,
+      freq: "monthly" as const,
+    },
+    {
+      path: "/servicos/eventos-corporativos",
+      priority: 0.8,
+      freq: "monthly" as const,
+    },
   ];
 
   return rotas.map((r) => ({
