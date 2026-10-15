@@ -47,6 +47,36 @@ const SERVICES = [
       "Suporte humano em cada etapa do processo",
     ],
   },
+  {
+    title: "Auditoria em Departamento Pessoal",
+    desc: "Descubra erros na folha, eSocial e SST antes da fiscalização. Relatório completo com riscos e plano de ação.",
+    href: "/servicos/auditoria-departamento-pessoal",
+    items: [
+      "Análise de folha, eSocial e SST",
+      "Relatório com riscos de multas e ações",
+      "Plano de ação para correções",
+    ],
+  },
+  {
+    title: "Endomarketing Terceirizado",
+    desc: "Engaje seus colaboradores sem sobrecarregar o RH. Planejamento e execução de comunicação interna.",
+    href: "/servicos/endomarketing-terceirizado",
+    items: [
+      "Diagnóstico de clima e cultura",
+      "Conteúdo interno profissional",
+      "Relatórios de engajamento",
+    ],
+  },
+  {
+    title: "Eventos Corporativos",
+    desc: "Organização completa de convenções, workshops, treinamentos e confraternizações empresariais.",
+    href: "/servicos/eventos-corporativos",
+    items: [
+      "Planejamento sob medida",
+      "Gestão de fornecedores e logística",
+      "Coordenação no dia do evento",
+    ],
+  },
 ];
 
 const DEPOIMENTOS: Testimonial[] = [
@@ -305,14 +335,23 @@ export default function Home() {
                     ))}
                   </ul>
                   <div className="mt-auto pt-8">
-                    <a
-                      href={orcamentoUrl(s.title)}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="inline-flex h-11 w-full items-center justify-center rounded-full bg-brand px-6 text-sm font-semibold tracking-wide text-white transition-colors hover:bg-brand-dark"
-                    >
-                      Solicitar orçamento
-                    </a>
+                    {s.href ? (
+                      <Link
+                        href={s.href}
+                        className="inline-flex h-11 w-full items-center justify-center rounded-full bg-brand px-6 text-sm font-semibold tracking-wide text-white transition-colors hover:bg-brand-dark"
+                      >
+                        Saiba mais
+                      </Link>
+                    ) : (
+                      <a
+                        href={orcamentoUrl(s.title)}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex h-11 w-full items-center justify-center rounded-full bg-brand px-6 text-sm font-semibold tracking-wide text-white transition-colors hover:bg-brand-dark"
+                      >
+                        Solicitar orçamento
+                      </a>
+                    )}
                   </div>
                 </div>
               </Reveal>
