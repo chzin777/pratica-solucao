@@ -17,10 +17,59 @@ function maskPhone(v: string) {
   return out;
 }
 
+/* ─── Stepper bar ─── */
+function StepperBar({
+  steps,
+  current,
+}: {
+  steps: string[];
+  current: number;
+}) {
+  return (
+    <div className="pe-stepper" role="list" aria-label="Etapas do formulário">
+      {steps.map((label, i) => {
+        const done = i < current;
+        const active = i === current;
+        return (
+          <div
+            key={label}
+            className={`pe-step-item ${done ? "done" : ""} ${active ? "active" : ""}`}
+            role="listitem"
+            aria-current={active ? "step" : undefined}
+          >
+            <span className="pe-step-circle">
+              {done ? (
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>
+              ) : (
+                i + 1
+              )}
+            </span>
+            <span className="pe-step-label">{label}</span>
+            {i < steps.length - 1 && <span className="pe-step-line" />}
+          </div>
+        );
+      })}
+    </div>
+  );
+}
+
 export default function EstagioSection() {
   const [tab, setTab] = useState<"estudante" | "empresa">("estudante");
   const [enviado, setEnviado] = useState(false);
   const rootRef = useRef<HTMLElement>(null);
+
+  /* ─── Student stepper state ─── */
+  const [sStep, setSStep] = useState(0);
+  const sFormRef = useRef<HTMLFormElement>(null);
+  const [cvError, setCvError] = useState("");
+
+  const S_STEPS = ["Dados pessoais", "Formação", "Preferências", "Currículo"];
+
+  /* ─── Company stepper state ─── */
+  const [eStep, setEStep] = useState(0);
+  const [empError, setEmpError] = useState("");
+
+  const E_STEPS = ["Seus dados", "Detalhes da vaga", "Revisão"];
 
   // Check hash on mount and hashchange
   useEffect(() => {
@@ -32,16 +81,13 @@ export default function EstagioSection() {
     checkHash();
     window.addEventListener("hashchange", checkHash);
 
-    // Check if returning from form submission
     const params = new URLSearchParams(location.search);
     if (params.get("estagio") === "enviado") {
       setTab("estudante");
       setEnviado(true);
       params.delete("estagio");
       const q = params.toString();
-      const newUrl =
-        location.pathname + (q ? "?" + q : "") + "#estagio";
-      history.replaceState(null, "", newUrl);
+      history.replaceState(null, "", location.pathname + (q ? "?" + q : "") + "#estagio");
     }
 
     return () => window.removeEventListener("hashchange", checkHash);
@@ -49,14 +95,50 @@ export default function EstagioSection() {
 
   const switchTab = (t: "estudante" | "empresa") => {
     setTab(t);
+    setSStep(0);
+    setEStep(0);
     history.replaceState(null, "", `#estagio-${t}`);
     setTimeout(() => {
       rootRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
     }, 30);
   };
 
-  // Student form file validation
-  const [cvError, setCvError] = useState("");
+  /* ─── Student step validation ─── */
+  const validateStudentStep = (step: number): boolean => {
+    const form = sFormRef.current;
+    if (!form) return false;
+
+    if (step === 0) {
+      const fields = ["Nome completo", "email", "WhatsApp"] as const;
+      for (const name of fields) {
+        const el = form.elements.namedItem(name) as HTMLInputElement | null;
+        if (!el?.value.trim()) { el?.focus(); return false; }
+        if (name === "email" && !el.value.includes("@")) { el.focus(); return false; }
+      }
+      return true;
+    }
+    if (step === 1) {
+      const fields = ["Cidade", "Nível de ensino", "Curso", "Instituição de ensino", "Período atual", "Turno das aulas"] as const;
+      for (const name of fields) {
+        const el = form.elements.namedItem(name) as HTMLInputElement | HTMLSelectElement | null;
+        if (!el?.value.trim()) { el?.focus(); return false; }
+      }
+      return true;
+    }
+    if (step === 2) {
+      // Optional fields — always valid
+      return true;
+    }
+    if (step === 3) {
+      const cv = form.elements.namedItem("Currículo") as HTMLInputElement | null;
+      const consent = form.elements.namedItem("Autorização LGPD") as HTMLInputElement | null;
+      if (!cv?.files?.length) { cv?.focus(); return false; }
+      if (!consent?.checked) { consent?.focus(); return false; }
+      return true;
+    }
+    return true;
+  };
+
   const handleCvChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const f = e.target.files?.[0];
     let msg = "";
@@ -64,52 +146,56 @@ export default function EstagioSection() {
       const okType = /\.(pdf|docx?)$/i.test(f.name);
       if (!okType) msg = "Envie o currículo em PDF ou Word (.doc ou .docx).";
       else if (f.size > MAX_MB * 1024 * 1024)
-        msg = `O arquivo tem ${(f.size / 1048576).toFixed(1).replace(".", ",")} MB. O limite é ${MAX_MB} MB. Tente salvar o PDF em tamanho menor.`;
+        msg = `O arquivo tem ${(f.size / 1048576).toFixed(1).replace(".", ",")} MB. O limite é ${MAX_MB} MB.`;
     }
     setCvError(msg);
     e.target.setCustomValidity(msg);
   };
 
-  // Company form WhatsApp redirect
-  const [empError, setEmpError] = useState("");
+  const studentNext = () => {
+    if (validateStudentStep(sStep)) setSStep((p) => Math.min(p + 1, S_STEPS.length - 1));
+  };
+  const studentPrev = () => setSStep((p) => Math.max(p - 1, 0));
+
+  /* ─── Company step validation ─── */
+  const validateEmpresaStep = (step: number, form: HTMLFormElement): boolean => {
+    if (step === 0) {
+      const nome = (form.elements.namedItem("nome") as HTMLInputElement)?.value.trim();
+      const empresa = (form.elements.namedItem("empresa") as HTMLInputElement)?.value.trim();
+      if (!nome || !empresa) {
+        setEmpError("Preencha o seu nome e o nome da empresa.");
+        return false;
+      }
+      setEmpError("");
+      return true;
+    }
+    return true;
+  };
+
   const handleEmpresaSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const fd = new FormData(e.currentTarget);
-    const nome = String(fd.get("nome") || "").trim();
-    const empresa = String(fd.get("empresa") || "").trim();
-    if (!nome || !empresa) {
-      setEmpError("Preencha o seu nome e o nome da empresa.");
-      return;
-    }
-    setEmpError("");
     const linhas = ["Olá! Quero contratar estagiário(s) pela Prática.", ""];
-    (
-      [
-        ["nome", "Nome"],
-        ["empresa", "Empresa"],
-        ["cidade", "Cidade"],
-        ["vagas", "Quantidade"],
-        ["area", "Área da vaga"],
-        ["escolhido", "Estagiário já escolhido"],
-        ["mensagem", "Mensagem"],
-      ] as const
-    ).forEach(([key, label]) => {
+    ([
+      ["nome", "Nome"], ["empresa", "Empresa"], ["cidade", "Cidade"],
+      ["vagas", "Quantidade"], ["area", "Área da vaga"],
+      ["escolhido", "Estagiário já escolhido"], ["mensagem", "Mensagem"],
+    ] as const).forEach(([key, label]) => {
       const v = String(fd.get(key) || "").trim();
       if (v) linhas.push(`*${label}:* ${v}`);
     });
-    const url =
-      `https://wa.me/${WHATSAPP}?text=` + encodeURIComponent(linhas.join("\n"));
+    const url = `https://wa.me/${WHATSAPP}?text=` + encodeURIComponent(linhas.join("\n"));
     const w = window.open(url, "_blank");
     if (!w) location.href = url;
   };
 
+  const empresaNext = (form: HTMLFormElement) => {
+    if (validateEmpresaStep(eStep, form)) setEStep((p) => Math.min(p + 1, E_STEPS.length - 1));
+  };
+  const empresaPrev = () => setEStep((p) => Math.max(p - 1, 0));
+
   return (
-    <section
-      id="estagio"
-      ref={rootRef}
-      className="pe-section scroll-mt-20 bg-[#f4f7fb] py-20 sm:py-24"
-    >
-      {/* Scoped styles */}
+    <section id="estagio" ref={rootRef} className="pe-section scroll-mt-20 bg-[#f4f7fb] py-20 sm:py-24">
       <style>{`
         .pe-section { font-family: inherit; color: #334255; line-height: 1.6; }
         .pe-section *, .pe-section *::before, .pe-section *::after { box-sizing: border-box; }
@@ -193,11 +279,39 @@ export default function EstagioSection() {
         .pe-btn-primary:hover { background: #173a5e; }
         .pe-btn-wa { background: #1a9e4b; color: #fff; }
         .pe-btn-wa:hover { background: #158540; }
+        .pe-btn-outline { background: transparent; color: #0D243B; border: 2px solid #dbe4ee; }
+        .pe-btn-outline:hover { border-color: #87B1D7; background: #eaf2fa; }
         .pe-btn-block { width: 100%; }
         .pe-note { font-size: 13px; color: #5f6f82; text-align: center; }
 
         .pe-alert { background: #e7f7ee; border: 1px solid #b9e3c9; color: #14532d; padding: 14px 16px; border-radius: 12px; margin-bottom: 18px; font-size: 15px; }
         .pe-alert strong { display: block; font-size: 16px; }
+
+        /* ─── Stepper ─── */
+        .pe-stepper { display: flex; align-items: center; justify-content: center; gap: 0; margin-bottom: 28px; padding: 0; }
+        .pe-step-item { display: flex; align-items: center; gap: 8px; position: relative; }
+        .pe-step-circle { width: 32px; height: 32px; border-radius: 50%; display: grid; place-items: center; font-size: 13px; font-weight: 800; border: 2px solid #dbe4ee; color: #5f6f82; background: #fff; transition: all .25s; flex: none; }
+        .pe-step-label { font-size: 13px; font-weight: 700; color: #5f6f82; white-space: nowrap; transition: color .25s; }
+        .pe-step-line { width: 32px; height: 2px; background: #dbe4ee; margin: 0 6px; border-radius: 2px; transition: background .25s; }
+        .pe-step-item.active .pe-step-circle { border-color: #0D243B; background: #0D243B; color: #fff; }
+        .pe-step-item.active .pe-step-label { color: #0D243B; }
+        .pe-step-item.done .pe-step-circle { border-color: #1a9e4b; background: #1a9e4b; color: #fff; }
+        .pe-step-item.done .pe-step-label { color: #14633a; }
+        .pe-step-item.done + .pe-step-item .pe-step-line,
+        .pe-step-item.done .pe-step-line { background: #1a9e4b; }
+        @media (max-width: 560px) {
+          .pe-step-label { display: none; }
+          .pe-step-line { width: 20px; }
+        }
+
+        .pe-step-nav { display: flex; gap: 12px; margin-top: 20px; }
+        .pe-step-nav .pe-btn { flex: 1; }
+
+        .pe-review-grid { display: grid; gap: 12px; }
+        .pe-review-item { display: flex; justify-content: space-between; gap: 12px; padding: 10px 0; border-bottom: 1px solid #dbe4ee; font-size: 14px; }
+        .pe-review-item:last-child { border-bottom: 0; }
+        .pe-review-label { font-weight: 700; color: #0D243B; white-space: nowrap; }
+        .pe-review-value { color: #334255; text-align: right; word-break: break-word; }
 
         .pe-block { margin-top: 56px; }
         .pe-block-head { text-align: center; max-width: 680px; margin: 0 auto 26px; }
@@ -205,10 +319,10 @@ export default function EstagioSection() {
         .pe-block-head p { color: #5f6f82; }
         .pe-steps { display: grid; grid-template-columns: 1fr; gap: 16px; }
         @media (min-width: 780px) { .pe-steps { grid-template-columns: repeat(3, 1fr); } }
-        .pe-step { background: #fff; border: 1px solid #dbe4ee; border-radius: 18px; padding: 24px; }
+        .pe-step-card { background: #fff; border: 1px solid #dbe4ee; border-radius: 18px; padding: 24px; }
         .pe-step-n { display: inline-block; font-size: 13px; font-weight: 800; letter-spacing: .1em; color: #2f6aa3; margin-bottom: 8px; }
-        .pe-step h4 { margin: 0 0 8px; font-size: 18px; }
-        .pe-step p { font-size: 15px; }
+        .pe-step-card h4 { margin: 0 0 8px; font-size: 18px; }
+        .pe-step-card p { font-size: 15px; }
 
         .pe-faq { max-width: 840px; margin: 0 auto; background: #fff; border: 1px solid #dbe4ee; border-radius: 20px; padding: 6px 26px; }
         .pe-faq details { border-bottom: 1px solid #dbe4ee; }
@@ -259,14 +373,7 @@ export default function EstagioSection() {
 
         {/* Tabs */}
         <div className="pe-tabs" role="tablist" aria-label="Escolha o seu perfil">
-          <button
-            type="button"
-            className="pe-tab"
-            role="tab"
-            aria-selected={tab === "estudante"}
-            tabIndex={tab === "estudante" ? 0 : -1}
-            onClick={() => switchTab("estudante")}
-          >
+          <button type="button" className="pe-tab" role="tab" aria-selected={tab === "estudante"} tabIndex={tab === "estudante" ? 0 : -1} onClick={() => switchTab("estudante")}>
             <span className="pe-tab-icon" aria-hidden="true">
               <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M22 10L12 5 2 10l10 5 10-5z"/><path d="M6 12v5c0 1.5 2.7 3 6 3s6-1.5 6-3v-5"/><path d="M22 10v5"/></svg>
             </span>
@@ -275,14 +382,7 @@ export default function EstagioSection() {
               <span className="pe-tab-sub">Quero me candidatar a vagas de estágio. Cadastro 100% gratuito.</span>
             </span>
           </button>
-          <button
-            type="button"
-            className="pe-tab"
-            role="tab"
-            aria-selected={tab === "empresa"}
-            tabIndex={tab === "empresa" ? 0 : -1}
-            onClick={() => switchTab("empresa")}
-          >
+          <button type="button" className="pe-tab" role="tab" aria-selected={tab === "empresa"} tabIndex={tab === "empresa" ? 0 : -1} onClick={() => switchTab("empresa")}>
             <span className="pe-tab-icon" aria-hidden="true">
               <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="3" y="7" width="18" height="13" rx="2"/><path d="M9 7V5a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2v2"/><path d="M3 13h18"/></svg>
             </span>
@@ -303,7 +403,7 @@ export default function EstagioSection() {
                 <p>Cadastre-se uma vez e concorra às vagas de estágio que a Prática divulga para empresas de Goiânia e região. Você não paga nada, nem no cadastro, nem na contratação.</p>
                 <ul className="pe-checks">
                   <li>Cadastro e participação totalmente gratuitos</li>
-                  <li>Vagas compatíveis com o seu curso e com o horário das suas aulas</li>
+                  <li>Vagas compatíveis com o seu curso e horário das aulas</li>
                   <li>Contrato dentro da Lei do Estágio, com seguro e recesso garantidos</li>
                   <li>Acompanhamento da Prática do início ao fim do estágio</li>
                 </ul>
@@ -326,7 +426,10 @@ export default function EstagioSection() {
                 <h3 className="pe-form-title">Cadastro de estudante</h3>
                 <p className="pe-form-sub">Campos com <span className="pe-req">*</span> são obrigatórios.</p>
 
+                <StepperBar steps={S_STEPS} current={sStep} />
+
                 <form
+                  ref={sFormRef}
                   className="pe-form"
                   action="https://formsubmit.co/contato@praticasolucao.com.br"
                   method="POST"
@@ -338,116 +441,132 @@ export default function EstagioSection() {
                   <input type="hidden" name="_autoresponse" value="Olá! Recebemos o seu cadastro no Programa de Estágio da Prática Soluções Empresariais. Quando surgir uma vaga compatível com o seu perfil, entraremos em contato pelo WhatsApp. Boa sorte!" />
                   <div className="sr-only" aria-hidden="true"><input type="text" name="_honey" tabIndex={-1} autoComplete="off" /></div>
 
-                  <div className="pe-field">
-                    <label htmlFor="pe-nome">Nome completo <span className="pe-req">*</span></label>
-                    <input id="pe-nome" name="Nome completo" type="text" autoComplete="name" required />
+                  {/* STEP 0: Dados pessoais */}
+                  {sStep === 0 && (
+                    <>
+                      <div className="pe-field">
+                        <label htmlFor="pe-nome">Nome completo <span className="pe-req">*</span></label>
+                        <input id="pe-nome" name="Nome completo" type="text" autoComplete="name" required />
+                      </div>
+                      <div className="pe-row two">
+                        <div className="pe-field">
+                          <label htmlFor="pe-email">E-mail <span className="pe-req">*</span></label>
+                          <input id="pe-email" name="email" type="email" autoComplete="email" required />
+                        </div>
+                        <div className="pe-field">
+                          <label htmlFor="pe-whats">WhatsApp <span className="pe-req">*</span></label>
+                          <input id="pe-whats" name="WhatsApp" type="tel" inputMode="tel" autoComplete="tel" placeholder="(62) 9 0000-0000" required onInput={(e) => { (e.target as HTMLInputElement).value = maskPhone((e.target as HTMLInputElement).value); }} />
+                        </div>
+                      </div>
+                      <div className="pe-field">
+                        <label htmlFor="pe-cidade">Cidade onde mora <span className="pe-req">*</span></label>
+                        <input id="pe-cidade" name="Cidade" type="text" autoComplete="address-level2" placeholder="Ex.: Goiânia" required />
+                      </div>
+                    </>
+                  )}
+
+                  {/* STEP 1: Formação */}
+                  {sStep === 1 && (
+                    <>
+                      <div className="pe-row two">
+                        <div className="pe-field">
+                          <label htmlFor="pe-nivel">Nível de ensino <span className="pe-req">*</span></label>
+                          <select id="pe-nivel" name="Nível de ensino" required defaultValue="">
+                            <option value="" disabled>Selecione</option>
+                            <option>Ensino superior</option>
+                            <option>Curso técnico</option>
+                            <option>Ensino médio</option>
+                          </select>
+                        </div>
+                        <div className="pe-field">
+                          <label htmlFor="pe-curso">Curso <span className="pe-req">*</span></label>
+                          <input id="pe-curso" name="Curso" type="text" placeholder="Ex.: Ciências Contábeis" required />
+                        </div>
+                      </div>
+                      <div className="pe-field">
+                        <label htmlFor="pe-ies">Instituição de ensino <span className="pe-req">*</span></label>
+                        <input id="pe-ies" name="Instituição de ensino" type="text" required />
+                      </div>
+                      <div className="pe-row two">
+                        <div className="pe-field">
+                          <label htmlFor="pe-periodo">Período / ano atual <span className="pe-req">*</span></label>
+                          <input id="pe-periodo" name="Período atual" type="text" placeholder="Ex.: 3º período" required />
+                        </div>
+                        <div className="pe-field">
+                          <label htmlFor="pe-turno">Turno das aulas <span className="pe-req">*</span></label>
+                          <select id="pe-turno" name="Turno das aulas" required defaultValue="">
+                            <option value="" disabled>Selecione</option>
+                            <option>Matutino</option>
+                            <option>Vespertino</option>
+                            <option>Noturno</option>
+                            <option>EAD</option>
+                          </select>
+                        </div>
+                      </div>
+                    </>
+                  )}
+
+                  {/* STEP 2: Preferências */}
+                  {sStep === 2 && (
+                    <>
+                      <div className="pe-row two">
+                        <div className="pe-field">
+                          <label htmlFor="pe-area">Área de interesse</label>
+                          <select id="pe-area" name="Área de interesse" defaultValue="">
+                            <option value="">Selecione</option>
+                            <option>Administrativo</option>
+                            <option>Financeiro / Contábil / Fiscal</option>
+                            <option>Departamento Pessoal / RH</option>
+                            <option>Comercial / Vendas</option>
+                            <option>Marketing</option>
+                            <option>Tecnologia</option>
+                            <option>Outra</option>
+                          </select>
+                        </div>
+                        <div className="pe-field">
+                          <label htmlFor="pe-disp">Disponibilidade para estagiar</label>
+                          <select id="pe-disp" name="Disponibilidade" defaultValue="">
+                            <option value="">Selecione</option>
+                            <option>Manhã</option>
+                            <option>Tarde</option>
+                            <option>Manhã ou tarde</option>
+                          </select>
+                        </div>
+                      </div>
+                      <div className="pe-field">
+                        <label htmlFor="pe-msg">Quer contar algo sobre você? (opcional)</label>
+                        <textarea id="pe-msg" name="Mensagem" placeholder="Experiências, cursos, o que você procura no estágio..." />
+                      </div>
+                    </>
+                  )}
+
+                  {/* STEP 3: Currículo */}
+                  {sStep === 3 && (
+                    <>
+                      <div className="pe-field">
+                        <label htmlFor="pe-cv">Currículo <span className="pe-req">*</span></label>
+                        <input id="pe-cv" name="Currículo" type="file" accept=".pdf,.doc,.docx,application/pdf,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document" required onChange={handleCvChange} />
+                        <p className="pe-hint">PDF ou Word, até {MAX_MB} MB.</p>
+                        {cvError && <p className="pe-error">{cvError}</p>}
+                      </div>
+                      <label className="pe-consent">
+                        <input type="checkbox" name="Autorização LGPD" value="Sim, autorizo" required />
+                        <span>Autorizo a Prática Soluções Empresariais a guardar meus dados e a compartilhar meu currículo com empresas parceiras, apenas para fins de recrutamento de estágio. <span className="pe-req">*</span></span>
+                      </label>
+                    </>
+                  )}
+
+                  {/* Navigation buttons */}
+                  <div className="pe-step-nav">
+                    {sStep > 0 && (
+                      <button type="button" className="pe-btn pe-btn-outline" onClick={studentPrev}>Voltar</button>
+                    )}
+                    {sStep < S_STEPS.length - 1 ? (
+                      <button type="button" className="pe-btn pe-btn-primary pe-btn-block" onClick={studentNext}>Próximo</button>
+                    ) : (
+                      <button type="submit" className="pe-btn pe-btn-primary pe-btn-block">Enviar meu cadastro</button>
+                    )}
                   </div>
-                  <div className="pe-row two">
-                    <div className="pe-field">
-                      <label htmlFor="pe-email">E-mail <span className="pe-req">*</span></label>
-                      <input id="pe-email" name="email" type="email" autoComplete="email" required />
-                    </div>
-                    <div className="pe-field">
-                      <label htmlFor="pe-whats">WhatsApp <span className="pe-req">*</span></label>
-                      <input
-                        id="pe-whats"
-                        name="WhatsApp"
-                        type="tel"
-                        inputMode="tel"
-                        autoComplete="tel"
-                        placeholder="(62) 9 0000-0000"
-                        required
-                        onInput={(e) => { (e.target as HTMLInputElement).value = maskPhone((e.target as HTMLInputElement).value); }}
-                      />
-                    </div>
-                  </div>
-                  <div className="pe-row two">
-                    <div className="pe-field">
-                      <label htmlFor="pe-cidade">Cidade onde mora <span className="pe-req">*</span></label>
-                      <input id="pe-cidade" name="Cidade" type="text" autoComplete="address-level2" placeholder="Ex.: Goiânia" required />
-                    </div>
-                    <div className="pe-field">
-                      <label htmlFor="pe-nivel">Nível de ensino <span className="pe-req">*</span></label>
-                      <select id="pe-nivel" name="Nível de ensino" required defaultValue="">
-                        <option value="" disabled>Selecione</option>
-                        <option>Ensino superior</option>
-                        <option>Curso técnico</option>
-                        <option>Ensino médio</option>
-                      </select>
-                    </div>
-                  </div>
-                  <div className="pe-row two">
-                    <div className="pe-field">
-                      <label htmlFor="pe-curso">Curso <span className="pe-req">*</span></label>
-                      <input id="pe-curso" name="Curso" type="text" placeholder="Ex.: Ciências Contábeis" required />
-                    </div>
-                    <div className="pe-field">
-                      <label htmlFor="pe-ies">Instituição de ensino <span className="pe-req">*</span></label>
-                      <input id="pe-ies" name="Instituição de ensino" type="text" required />
-                    </div>
-                  </div>
-                  <div className="pe-row two">
-                    <div className="pe-field">
-                      <label htmlFor="pe-periodo">Período / ano atual <span className="pe-req">*</span></label>
-                      <input id="pe-periodo" name="Período atual" type="text" placeholder="Ex.: 3º período" required />
-                    </div>
-                    <div className="pe-field">
-                      <label htmlFor="pe-turno">Turno das aulas <span className="pe-req">*</span></label>
-                      <select id="pe-turno" name="Turno das aulas" required defaultValue="">
-                        <option value="" disabled>Selecione</option>
-                        <option>Matutino</option>
-                        <option>Vespertino</option>
-                        <option>Noturno</option>
-                        <option>EAD</option>
-                      </select>
-                    </div>
-                  </div>
-                  <div className="pe-row two">
-                    <div className="pe-field">
-                      <label htmlFor="pe-area">Área de interesse</label>
-                      <select id="pe-area" name="Área de interesse" defaultValue="">
-                        <option value="">Selecione</option>
-                        <option>Administrativo</option>
-                        <option>Financeiro / Contábil / Fiscal</option>
-                        <option>Departamento Pessoal / RH</option>
-                        <option>Comercial / Vendas</option>
-                        <option>Marketing</option>
-                        <option>Tecnologia</option>
-                        <option>Outra</option>
-                      </select>
-                    </div>
-                    <div className="pe-field">
-                      <label htmlFor="pe-disp">Disponibilidade para estagiar</label>
-                      <select id="pe-disp" name="Disponibilidade" defaultValue="">
-                        <option value="">Selecione</option>
-                        <option>Manhã</option>
-                        <option>Tarde</option>
-                        <option>Manhã ou tarde</option>
-                      </select>
-                    </div>
-                  </div>
-                  <div className="pe-field">
-                    <label htmlFor="pe-cv">Currículo <span className="pe-req">*</span></label>
-                    <input
-                      id="pe-cv"
-                      name="Currículo"
-                      type="file"
-                      accept=".pdf,.doc,.docx,application/pdf,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document"
-                      required
-                      onChange={handleCvChange}
-                    />
-                    <p className="pe-hint">PDF ou Word, até {MAX_MB} MB.</p>
-                    {cvError && <p className="pe-error">{cvError}</p>}
-                  </div>
-                  <div className="pe-field">
-                    <label htmlFor="pe-msg">Quer contar algo sobre você? (opcional)</label>
-                    <textarea id="pe-msg" name="Mensagem" placeholder="Experiências, cursos, o que você procura no estágio..." />
-                  </div>
-                  <label className="pe-consent">
-                    <input type="checkbox" name="Autorização LGPD" value="Sim, autorizo" required />
-                    <span>Autorizo a Prática Soluções Empresariais a guardar meus dados e a compartilhar meu currículo com empresas parceiras, apenas para fins de recrutamento de estágio. <span className="pe-req">*</span></span>
-                  </label>
-                  <button type="submit" className="pe-btn pe-btn-primary pe-btn-block">Enviar meu cadastro</button>
                   <p className="pe-note">Cadastro 100% gratuito. Você não paga nada para participar.</p>
                 </form>
               </div>
@@ -484,62 +603,121 @@ export default function EstagioSection() {
               <div className="pe-card">
                 <h3 className="pe-form-title">Quero contratar estagiários</h3>
                 <p className="pe-form-sub">Preencha e fale direto com a gente no WhatsApp, com a mensagem já pronta.</p>
+
+                <StepperBar steps={E_STEPS} current={eStep} />
+
                 <form className="pe-form" onSubmit={handleEmpresaSubmit} noValidate>
-                  <div className="pe-row two">
-                    <div className="pe-field">
-                      <label htmlFor="pe-e-nome">Seu nome <span className="pe-req">*</span></label>
-                      <input id="pe-e-nome" name="nome" type="text" autoComplete="name" required />
+                  {/* STEP 0: Seus dados */}
+                  {eStep === 0 && (
+                    <>
+                      <div className="pe-row two">
+                        <div className="pe-field">
+                          <label htmlFor="pe-e-nome">Seu nome <span className="pe-req">*</span></label>
+                          <input id="pe-e-nome" name="nome" type="text" autoComplete="name" required />
+                        </div>
+                        <div className="pe-field">
+                          <label htmlFor="pe-e-empresa">Empresa <span className="pe-req">*</span></label>
+                          <input id="pe-e-empresa" name="empresa" type="text" autoComplete="organization" required />
+                        </div>
+                      </div>
+                      <div className="pe-field">
+                        <label htmlFor="pe-e-cidade">Cidade</label>
+                        <input id="pe-e-cidade" name="cidade" type="text" placeholder="Ex.: Goiânia" />
+                      </div>
+                      {empError && <p className="pe-error">{empError}</p>}
+                    </>
+                  )}
+
+                  {/* STEP 1: Detalhes da vaga */}
+                  {eStep === 1 && (
+                    <>
+                      <div className="pe-row two">
+                        <div className="pe-field">
+                          <label htmlFor="pe-e-vagas">Quantos estagiários?</label>
+                          <select id="pe-e-vagas" name="vagas" defaultValue="">
+                            <option value="">Selecione</option>
+                            <option>1 estagiário</option>
+                            <option>2 a 3 estagiários</option>
+                            <option>4 a 5 estagiários</option>
+                            <option>Mais de 5</option>
+                          </select>
+                        </div>
+                        <div className="pe-field">
+                          <label htmlFor="pe-e-area">Área da vaga</label>
+                          <select id="pe-e-area" name="area" defaultValue="">
+                            <option value="">Selecione</option>
+                            <option>Administrativo</option>
+                            <option>Financeiro / Contábil / Fiscal</option>
+                            <option>Departamento Pessoal / RH</option>
+                            <option>Comercial / Vendas</option>
+                            <option>Marketing</option>
+                            <option>Tecnologia</option>
+                            <option>Outra</option>
+                          </select>
+                        </div>
+                      </div>
+                      <fieldset className="pe-fieldset pe-field">
+                        <legend>Já tem o estagiário escolhido?</legend>
+                        <div className="pe-radios">
+                          <label><input type="radio" name="escolhido" value="Não, quero divulgar a vaga" defaultChecked /> Não, quero divulgar a vaga</label>
+                          <label><input type="radio" name="escolhido" value="Sim, só preciso formalizar o contrato" /> Sim, só falta o contrato</label>
+                        </div>
+                      </fieldset>
+                      <div className="pe-field">
+                        <label htmlFor="pe-e-msg">Mensagem (opcional)</label>
+                        <textarea id="pe-e-msg" name="mensagem" placeholder="Curso desejado, horário, valor da bolsa..." />
+                      </div>
+                    </>
+                  )}
+
+                  {/* STEP 2: Revisão */}
+                  {eStep === 2 && (
+                    <div className="pe-review-grid">
+                      <p style={{ fontSize: 15, marginBottom: 12 }}>Revise os dados antes de enviar:</p>
+                      {[
+                        { label: "Nome", name: "nome" },
+                        { label: "Empresa", name: "empresa" },
+                        { label: "Cidade", name: "cidade" },
+                        { label: "Quantidade", name: "vagas" },
+                        { label: "Área", name: "area" },
+                        { label: "Estagiário escolhido", name: "escolhido" },
+                        { label: "Mensagem", name: "mensagem" },
+                      ].map(({ label, name }) => {
+                        const form = document.querySelector("#pe-form-empresa") as HTMLFormElement | null;
+                        const val = form ? String(new FormData(form).get(name) || "—").trim() : "—";
+                        return (
+                          <div key={name} className="pe-review-item">
+                            <span className="pe-review-label">{label}</span>
+                            <span className="pe-review-value">{val || "—"}</span>
+                          </div>
+                        );
+                      })}
                     </div>
-                    <div className="pe-field">
-                      <label htmlFor="pe-e-empresa">Empresa <span className="pe-req">*</span></label>
-                      <input id="pe-e-empresa" name="empresa" type="text" autoComplete="organization" required />
-                    </div>
+                  )}
+
+                  {/* Navigation */}
+                  <div className="pe-step-nav">
+                    {eStep > 0 && (
+                      <button type="button" className="pe-btn pe-btn-outline" onClick={empresaPrev}>Voltar</button>
+                    )}
+                    {eStep < E_STEPS.length - 1 ? (
+                      <button
+                        type="button"
+                        className="pe-btn pe-btn-primary pe-btn-block"
+                        onClick={() => {
+                          const form = document.querySelector("#pe-form-empresa") as HTMLFormElement;
+                          if (form) empresaNext(form);
+                        }}
+                      >
+                        Próximo
+                      </button>
+                    ) : (
+                      <button type="submit" className="pe-btn pe-btn-wa pe-btn-block">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M21 11.5a8.5 8.5 0 0 1-12.6 7.4L3 20.5l1.6-5.2A8.5 8.5 0 1 1 21 11.5z"/></svg>
+                        Enviar pelo WhatsApp
+                      </button>
+                    )}
                   </div>
-                  <div className="pe-row two">
-                    <div className="pe-field">
-                      <label htmlFor="pe-e-cidade">Cidade</label>
-                      <input id="pe-e-cidade" name="cidade" type="text" placeholder="Ex.: Goiânia" />
-                    </div>
-                    <div className="pe-field">
-                      <label htmlFor="pe-e-vagas">Quantos estagiários?</label>
-                      <select id="pe-e-vagas" name="vagas" defaultValue="">
-                        <option value="">Selecione</option>
-                        <option>1 estagiário</option>
-                        <option>2 a 3 estagiários</option>
-                        <option>4 a 5 estagiários</option>
-                        <option>Mais de 5</option>
-                      </select>
-                    </div>
-                  </div>
-                  <div className="pe-field">
-                    <label htmlFor="pe-e-area">Área da vaga</label>
-                    <select id="pe-e-area" name="area" defaultValue="">
-                      <option value="">Selecione</option>
-                      <option>Administrativo</option>
-                      <option>Financeiro / Contábil / Fiscal</option>
-                      <option>Departamento Pessoal / RH</option>
-                      <option>Comercial / Vendas</option>
-                      <option>Marketing</option>
-                      <option>Tecnologia</option>
-                      <option>Outra</option>
-                    </select>
-                  </div>
-                  <fieldset className="pe-fieldset pe-field">
-                    <legend>Já tem o estagiário escolhido?</legend>
-                    <div className="pe-radios">
-                      <label><input type="radio" name="escolhido" value="Não, quero divulgar a vaga" defaultChecked /> Não, quero divulgar a vaga</label>
-                      <label><input type="radio" name="escolhido" value="Sim, só preciso formalizar o contrato" /> Sim, só falta o contrato</label>
-                    </div>
-                  </fieldset>
-                  <div className="pe-field">
-                    <label htmlFor="pe-e-msg">Mensagem (opcional)</label>
-                    <textarea id="pe-e-msg" name="mensagem" placeholder="Curso desejado, horário, valor da bolsa..." />
-                  </div>
-                  {empError && <p className="pe-error">{empError}</p>}
-                  <button type="submit" className="pe-btn pe-btn-wa pe-btn-block">
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M21 11.5a8.5 8.5 0 0 1-12.6 7.4L3 20.5l1.6-5.2A8.5 8.5 0 1 1 21 11.5z"/></svg>
-                    Enviar pelo WhatsApp
-                  </button>
                   <p className="pe-note">Você será levado ao WhatsApp da Prática com a mensagem preenchida.</p>
                 </form>
               </div>
@@ -552,17 +730,17 @@ export default function EstagioSection() {
                 <p>Do anúncio da vaga ao fim do contrato, cada etapa fica com a gente.</p>
               </div>
               <div className="pe-steps">
-                <div className="pe-step">
+                <div className="pe-step-card">
                   <span className="pe-step-n">01 · DIVULGAÇÃO</span>
                   <h4>Anunciamos a sua vaga</h4>
                   <p>Você define o perfil e nós divulgamos a vaga nas redes sociais, em grupos de estudantes, nas instituições de ensino e no nosso banco de currículos.</p>
                 </div>
-                <div className="pe-step">
+                <div className="pe-step-card">
                   <span className="pe-step-n">02 · SELEÇÃO</span>
                   <h4>Você escolhe o candidato</h4>
                   <p>Enviamos candidatos pré-selecionados para você entrevistar. Já tem alguém em mente? Pulamos direto para o contrato.</p>
                 </div>
-                <div className="pe-step">
+                <div className="pe-step-card">
                   <span className="pe-step-n">03 · CONTRATO E GESTÃO</span>
                   <h4>Cuidamos de toda a burocracia</h4>
                   <p>Emitimos o TCE, fazemos a integração com a instituição de ensino, contratamos o seguro e acompanhamos recesso, prazos e renovações até o fim.</p>
@@ -577,38 +755,14 @@ export default function EstagioSection() {
                 <p>O básico da Lei do Estágio, sem juridiquês.</p>
               </div>
               <div className="pe-faq">
-                <details>
-                  <summary>Quem pode contratar estagiário?</summary>
-                  <p>Empresas privadas de qualquer porte, órgãos públicos e profissionais liberais de nível superior com registro no seu conselho de classe.</p>
-                </details>
-                <details>
-                  <summary>Estagiário tem vínculo empregatício?</summary>
-                  <p>Não, desde que a lei seja cumprida: matrícula e frequência regulares, Termo de Compromisso assinado por empresa, estudante e instituição de ensino, e atividades compatíveis com o curso. Se algum desses pontos falhar, o estágio pode ser reconhecido como emprego. Por isso a gestão correta dos documentos é o que protege a sua empresa.</p>
-                </details>
-                <details>
-                  <summary>Quais são os custos obrigatórios?</summary>
-                  <p>No estágio não obrigatório, a bolsa e o auxílio-transporte são obrigatórios, e a empresa precisa garantir o seguro contra acidentes pessoais. Sobre a bolsa não incidem FGTS, 13º salário nem INSS patronal.</p>
-                </details>
-                <details>
-                  <summary>Qual é a jornada e por quanto tempo o estágio pode durar?</summary>
-                  <p>Para ensino superior, técnico e ensino médio, a jornada é de até 6 horas por dia e 30 horas por semana, compatível com o horário das aulas. O estágio na mesma empresa pode durar até 2 anos, exceto para pessoa com deficiência.</p>
-                </details>
-                <details>
-                  <summary>Quantos estagiários a minha empresa pode ter?</summary>
-                  <p>Para ensino superior e ensino médio profissionalizante, não há limite. Nos demais casos, o limite depende do número de empregados: de 1 a 5 empregados, 1 estagiário; de 6 a 10, até 2; de 11 a 25, até 5; acima de 25, até 20% do quadro.</p>
-                </details>
-                <details>
-                  <summary>Estagiário tem férias?</summary>
-                  <p>Tem direito a 30 dias de recesso a cada 12 meses de estágio (ou proporcional, se o contrato for menor), de preferência durante as férias escolares. Quando há bolsa, o recesso é remunerado. A Prática controla esses prazos para você.</p>
-                </details>
-                <details>
-                  <summary>Posso encerrar o estágio antes do prazo?</summary>
-                  <p>Sim. A lei não prevê multa nem aviso prévio. Basta formalizar o encerramento e acertar o recesso proporcional, e a Prática cuida disso para você.</p>
-                </details>
-                <details>
-                  <summary>Quanto custa o serviço da Prática?</summary>
-                  <p>Depende da quantidade de estagiários e do que você precisa: só a divulgação da vaga ou a gestão completa do contrato. Chame no WhatsApp e receba uma proposta sem compromisso.</p>
-                </details>
+                <details><summary>Quem pode contratar estagiário?</summary><p>Empresas privadas de qualquer porte, órgãos públicos e profissionais liberais de nível superior com registro no seu conselho de classe.</p></details>
+                <details><summary>Estagiário tem vínculo empregatício?</summary><p>Não, desde que a lei seja cumprida: matrícula e frequência regulares, Termo de Compromisso assinado por empresa, estudante e instituição de ensino, e atividades compatíveis com o curso.</p></details>
+                <details><summary>Quais são os custos obrigatórios?</summary><p>No estágio não obrigatório, a bolsa e o auxílio-transporte são obrigatórios, e a empresa precisa garantir o seguro contra acidentes pessoais. Sobre a bolsa não incidem FGTS, 13º salário nem INSS patronal.</p></details>
+                <details><summary>Qual é a jornada e por quanto tempo o estágio pode durar?</summary><p>Para ensino superior, técnico e ensino médio, a jornada é de até 6 horas por dia e 30 horas por semana. O estágio na mesma empresa pode durar até 2 anos, exceto para pessoa com deficiência.</p></details>
+                <details><summary>Quantos estagiários a minha empresa pode ter?</summary><p>Para ensino superior e ensino médio profissionalizante, não há limite. Nos demais casos, o limite depende do número de empregados.</p></details>
+                <details><summary>Estagiário tem férias?</summary><p>Tem direito a 30 dias de recesso a cada 12 meses de estágio (ou proporcional), de preferência durante as férias escolares. Quando há bolsa, o recesso é remunerado.</p></details>
+                <details><summary>Posso encerrar o estágio antes do prazo?</summary><p>Sim. A lei não prevê multa nem aviso prévio. Basta formalizar o encerramento e acertar o recesso proporcional.</p></details>
+                <details><summary>Quanto custa o serviço da Prática?</summary><p>Depende da quantidade de estagiários e do que você precisa. Chame no WhatsApp e receba uma proposta sem compromisso.</p></details>
               </div>
             </div>
 
@@ -618,12 +772,7 @@ export default function EstagioSection() {
                 <h3>Pronto para contratar o seu estagiário?</h3>
                 <p>Fale com um especialista da Prática e receba uma proposta sem compromisso.</p>
               </div>
-              <a
-                className="pe-btn pe-btn-wa"
-                href="https://wa.me/5562982103699?text=Ol%C3%A1!%20Quero%20contratar%20estagi%C3%A1rio(s)%20pela%20Pr%C3%A1tica."
-                target="_blank"
-                rel="noopener noreferrer"
-              >
+              <a className="pe-btn pe-btn-wa" href="https://wa.me/5562982103699?text=Ol%C3%A1!%20Quero%20contratar%20estagi%C3%A1rio(s)%20pela%20Pr%C3%A1tica." target="_blank" rel="noopener noreferrer">
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M21 11.5a8.5 8.5 0 0 1-12.6 7.4L3 20.5l1.6-5.2A8.5 8.5 0 1 1 21 11.5z"/></svg>
                 Falar no WhatsApp
               </a>
