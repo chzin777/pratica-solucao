@@ -9,6 +9,7 @@ import { Testimonials, type Testimonial } from "./components/Testimonials";
 import SiteFooter from "./components/SiteFooter";
 import AbstractBG from "./components/AbstractBG";
 import Quiz from "./components/Quiz";
+import EstagioSection from "./components/EstagioSection";
 
 const WHATSAPP =
   "https://wa.me/5562982103699?text=Ol%C3%A1!%20Gostaria%20de%20saber%20mais%20sobre%20os%20servi%C3%A7os.";
@@ -697,43 +698,7 @@ export default function Home() {
       </section>
 
       {/* ESTÁGIO */}
-      <section id="estagio" className="py-20 sm:py-24">
-        <div className="mx-auto max-w-6xl px-5 sm:px-6">
-          <Reveal>
-            <div className="overflow-hidden rounded-3xl bg-brand-deep px-8 py-16 text-white sm:px-16">
-              <div className="max-w-2xl">
-                <SplitText
-                  text="Programa de Estágio"
-                  tag="h2"
-                  textAlign="left"
-                  className="text-3xl font-bold tracking-tight"
-                  splitType="chars"
-                  delay={25}
-                  duration={0.7}
-                />
-                <Reveal delay={0.15}>
-                  <p className="mt-4 text-lg text-sky-50/90">
-                    Quer dar o primeiro passo na carreira? Faça parte do nosso
-                    time. Buscamos estudantes dedicados para crescer junto com a
-                    Prática Soluções nas áreas de departamento pessoal, SST e
-                    administrativo.
-                  </p>
-                </Reveal>
-                <Reveal delay={0.3}>
-                  <a
-                    href={WHATSAPP}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="mt-8 inline-flex h-12 items-center justify-center rounded-full bg-white px-7 text-sm font-semibold tracking-wide text-brand-deep transition-colors hover:bg-sky-50"
-                  >
-                    ENVIAR CURRÍCULO
-                  </a>
-                </Reveal>
-              </div>
-            </div>
-          </Reveal>
-        </div>
-      </section>
+      <EstagioSection />
 
       {/* CONTATO */}
       <section id="contato" className="bg-slate-50 py-20 sm:py-24">
