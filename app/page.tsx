@@ -9,7 +9,6 @@ import { Testimonials, type Testimonial } from "./components/Testimonials";
 import SiteFooter from "./components/SiteFooter";
 import AbstractBG from "./components/AbstractBG";
 import Quiz from "./components/Quiz";
-import EstagioSection from "./components/EstagioSection";
 
 const WHATSAPP =
   "https://wa.me/5562982103699?text=Ol%C3%A1!%20Gostaria%20de%20saber%20mais%20sobre%20os%20servi%C3%A7os.";
@@ -24,6 +23,7 @@ const SERVICES = [
   {
     title: "Consultoria em SST",
     desc: "Mantenha sua empresa em conformidade e protegida de multas. Cuidamos de toda a segurança e saúde do trabalho, do laudo ao envio no eSocial.",
+    href: "/servicos/consultoria-sst",
     items: [
       "Laudos técnicos e envios mensais sem atraso",
       "PGR, PCMSO, LTCAT, PMOC, PGES e PGRSS",
@@ -33,6 +33,7 @@ const SERVICES = [
   {
     title: "Terceirização de Folha de Pagamento",
     desc: "Tire o peso do departamento pessoal das suas costas. Assumimos a folha da sua empresa ou contabilidade com precisão e prazos garantidos.",
+    href: "/servicos/terceirizacao-folha-pagamento",
     items: [
       "Cálculos de folha, férias e rescisões sem erro",
       "Gestão completa das rotinas e obrigações trabalhistas",
@@ -42,6 +43,7 @@ const SERVICES = [
   {
     title: "Certificado Digital",
     desc: "Assine documentos e acesse serviços com total segurança. Emitimos seu certificado digital de forma rápida, online ou presencial.",
+    href: "/servicos/certificado-digital",
     items: [
       "Emissão no mesmo dia, online ou presencial",
       "e-CPF e e-CNPJ (modelos A1 e A3)",
@@ -301,36 +303,54 @@ export default function Home() {
       </section>
 
       {/* SERVIÇOS */}
-      <section id="servicos" className="bg-slate-50 py-20 sm:py-24">
-        <div className="mx-auto max-w-6xl px-5 sm:px-6">
+      <section id="servicos" className="relative overflow-hidden bg-slate-50 py-24 sm:py-32">
+        <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_30%_20%,rgba(135,177,215,0.18),transparent_55%),radial-gradient(circle_at_80%_80%,rgba(13,36,59,0.06),transparent_50%)]" aria-hidden="true" />
+        <div className="relative mx-auto max-w-6xl px-5 sm:px-6">
           <div className="mx-auto max-w-2xl text-center">
+            <Reveal direction="down">
+              <span className="inline-flex items-center gap-2 rounded-full border border-brand/20 bg-white px-4 py-1.5 text-xs font-bold uppercase tracking-[0.14em] text-brand shadow-sm">
+                <span className="h-1.5 w-1.5 rounded-full bg-brand" aria-hidden="true" />
+                Portfólio completo
+              </span>
+            </Reveal>
             <SplitText
               text="Nossos Serviços"
               tag="h2"
-              className="text-3xl font-bold tracking-tight text-brand-deep sm:text-4xl"
+              className="mt-5 text-3xl font-extrabold tracking-tight text-brand-deep sm:text-5xl"
               splitType="chars"
               delay={30}
               duration={0.7}
             />
             <Reveal delay={0.15}>
-              <p className="mt-4 text-lg text-slate-600">
-                Soluções completas para a gestão e a conformidade da sua empresa.
+              <p className="mt-5 text-lg leading-relaxed text-slate-600 sm:text-xl">
+                Da segurança do trabalho à folha de pagamento, cuidamos de tudo
+                para você focar no crescimento da empresa.
               </p>
             </Reveal>
           </div>
 
-          <div className="mt-16 grid gap-8 md:grid-cols-3">
+          <div className="mt-16 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
             {SERVICES.map((s, i) => (
-              <Reveal key={s.title} delay={i * 0.12}>
-                <div className="flex h-full flex-col rounded-2xl border border-slate-200 bg-white p-6 shadow-sm transition-shadow hover:shadow-md sm:p-8">
-                  <h3 className="text-xl font-semibold text-brand-deep">
+              <Reveal key={s.title} delay={i * 0.08}>
+                <div className="group relative flex h-full flex-col overflow-hidden rounded-3xl border border-slate-200/80 bg-white p-7 shadow-[0_18px_45px_-28px_rgba(13,36,59,0.18)] transition-all duration-300 hover:-translate-y-1 hover:border-brand/40 hover:shadow-[0_28px_60px_-30px_rgba(13,36,59,0.28)] sm:p-9">
+                  <div className="absolute inset-x-0 top-0 h-1.5 bg-gradient-to-r from-brand via-[#87B1D7] to-brand opacity-0 transition-opacity duration-300 group-hover:opacity-100" aria-hidden="true" />
+                  <div className="mb-5 inline-flex h-12 w-12 items-center justify-center rounded-2xl bg-brand/10 text-brand transition-colors group-hover:bg-brand group-hover:text-white">
+                    <Check />
+                  </div>
+                  <h3 className="text-xl font-bold text-brand-deep sm:text-2xl">
                     {s.title}
                   </h3>
-                  <p className="mt-3 text-slate-600">{s.desc}</p>
+                  <p className="mt-3 text-sm leading-relaxed text-slate-600 sm:text-base">
+                    {s.desc}
+                  </p>
                   <ul className="mt-6 space-y-3 text-sm text-slate-700">
                     {s.items.map((it) => (
-                      <li key={it} className="flex gap-2">
-                        <Check />
+                      <li key={it} className="flex gap-3">
+                        <span className="mt-1 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-emerald-100 text-emerald-700">
+                          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" className="h-3 w-3" aria-hidden="true">
+                            <path d="M20 6 9 17l-5-5" />
+                          </svg>
+                        </span>
                         <span>{it}</span>
                       </li>
                     ))}
@@ -339,18 +359,24 @@ export default function Home() {
                     {s.href ? (
                       <Link
                         href={s.href}
-                        className="inline-flex h-11 w-full items-center justify-center rounded-full bg-brand px-6 text-sm font-semibold tracking-wide text-white transition-colors hover:bg-brand-dark"
+                        className="inline-flex h-12 w-full items-center justify-center gap-2 rounded-full bg-brand px-6 text-sm font-bold uppercase tracking-wide text-white transition-all hover:bg-brand-dark hover:shadow-lg hover:shadow-brand/30"
                       >
                         Saiba mais
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="h-4 w-4" aria-hidden="true">
+                          <path d="M5 12h14M13 6l6 6-6 6" />
+                        </svg>
                       </Link>
                     ) : (
                       <a
                         href={orcamentoUrl(s.title)}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="inline-flex h-11 w-full items-center justify-center rounded-full bg-brand px-6 text-sm font-semibold tracking-wide text-white transition-colors hover:bg-brand-dark"
+                        className="inline-flex h-12 w-full items-center justify-center gap-2 rounded-full border-2 border-brand px-6 text-sm font-bold uppercase tracking-wide text-brand transition-all hover:bg-brand hover:text-white hover:shadow-lg hover:shadow-brand/30"
                       >
                         Solicitar orçamento
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="h-4 w-4" aria-hidden="true">
+                          <path d="M7.9 20A9 9 0 1 0 4 16.1L2 22Z" />
+                        </svg>
                       </a>
                     )}
                   </div>
@@ -697,8 +723,67 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ESTÁGIO */}
-      <EstagioSection />
+      {/* ESTÁGIO — CTA para página dedicada */}
+      <section className="relative overflow-hidden bg-[#0D243B] py-24 text-white sm:py-32">
+        <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_80%_20%,rgba(135,177,215,0.2),transparent_55%)]" aria-hidden="true" />
+        <div className="relative mx-auto max-w-6xl px-5 sm:px-6">
+          <div className="mx-auto max-w-3xl text-center">
+            <Reveal direction="down">
+              <span className="inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/10 px-4 py-1.5 text-xs font-bold uppercase tracking-[0.14em] text-[#87B1D7]">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="h-3.5 w-3.5" aria-hidden="true"><path d="M22 10L12 5 2 10l10 5 10-5z"/><path d="M6 12v5c0 1.5 2.7 3 6 3s6-1.5 6-3v-5"/></svg>
+                Programa de Estágio
+              </span>
+            </Reveal>
+            <SplitText
+              text="Estágio sem burocracia, do anúncio ao contrato"
+              tag="h2"
+              className="mt-5 text-3xl font-extrabold tracking-tight sm:text-5xl"
+              splitType="words"
+              delay={25}
+              duration={0.7}
+            />
+            <Reveal delay={0.15}>
+              <p className="mt-5 text-lg leading-relaxed text-[#B9CBDD] sm:text-xl">
+                Simplificamos o estágio para empresas e estudantes. Anunciamos a vaga, fazemos a integração com a instituição de ensino e cuidamos de toda a gestão do contrato, seguro e recesso.
+              </p>
+            </Reveal>
+            <Reveal delay={0.25}>
+              <div className="mt-10 flex flex-col items-center justify-center gap-4 sm:flex-row">
+                <Link
+                  href="/servicos/estagio#estagio-empresa"
+                  className="inline-flex h-14 items-center justify-center gap-2 rounded-full bg-[#87B1D7] px-8 text-base font-bold uppercase tracking-wide text-[#0D243B] transition-all hover:bg-[#a3c5e3] hover:shadow-lg hover:shadow-[#87B1D7]/30"
+                >
+                  Quero contratar estagiário
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="h-4 w-4" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+                </Link>
+                <Link
+                  href="/servicos/estagio#estagio-estudante"
+                  className="inline-flex h-14 items-center justify-center gap-2 rounded-full border-2 border-white/30 px-8 text-base font-bold uppercase tracking-wide text-white transition-all hover:border-white hover:bg-white/10"
+                >
+                  Sou estudante
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="h-4 w-4" aria-hidden="true"><path d="M22 10L12 5 2 10l10 5 10-5z"/><path d="M6 12v5c0 1.5 2.7 3 6 3s6-1.5 6-3v-5"/></svg>
+                </Link>
+              </div>
+            </Reveal>
+            <Reveal delay={0.35}>
+              <div className="mt-10 flex flex-wrap items-center justify-center gap-x-8 gap-y-3 text-sm font-semibold text-[#B9CBDD]">
+                <span className="flex items-center gap-2">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="#1FAF5A" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="h-4 w-4" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>
+                  Vagas gratuitas para estudantes
+                </span>
+                <span className="flex items-center gap-2">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="#1FAF5A" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="h-4 w-4" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>
+                  Sem FGTS, 13º ou INSS patronal
+                </span>
+                <span className="flex items-center gap-2">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="#1FAF5A" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="h-4 w-4" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>
+                  Contrato 100% dentro da Lei do Estágio
+                </span>
+              </div>
+            </Reveal>
+          </div>
+        </div>
+      </section>
 
       {/* CONTATO */}
       <section id="contato" className="bg-slate-50 py-20 sm:py-24">
