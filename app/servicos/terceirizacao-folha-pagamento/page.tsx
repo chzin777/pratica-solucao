@@ -3,6 +3,7 @@ import Header from "../../Header";
 import SiteFooter from "../../components/SiteFooter";
 import Reveal from "../../components/Reveal";
 import SplitText from "../../components/SplitText";
+import AbstractBG from "../../components/AbstractBG";
 
 export const metadata: Metadata = {
   title:
@@ -173,7 +174,8 @@ export default function TerceirizacaoFolhaPage() {
 
       {/* HERO */}
       <section className="relative overflow-hidden bg-[#0D243B] pt-32 pb-20 text-white sm:pt-40 sm:pb-28">
-        <div className="mx-auto max-w-6xl px-5 sm:px-6">
+        <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_70%_15%,rgba(135,177,215,0.22),transparent_55%),radial-gradient(circle_at_20%_80%,rgba(31,175,90,0.12),transparent_50%)]" aria-hidden="true" />
+        <div className="relative mx-auto max-w-6xl px-5 sm:px-6">
           <div className="grid items-center gap-12 lg:grid-cols-2">
             <div className="flex flex-col gap-6">
               <Reveal direction="down">
@@ -246,8 +248,9 @@ export default function TerceirizacaoFolhaPage() {
       </section>
 
       {/* SERVIÇOS */}
-      <section id="servicos" className="py-20 sm:py-24">
-        <div className="mx-auto max-w-6xl px-5 sm:px-6">
+      <section id="servicos" className="relative overflow-hidden py-20 sm:py-24">
+        <AbstractBG />
+        <div className="relative mx-auto max-w-6xl px-5 sm:px-6">
           <div className="mx-auto max-w-2xl text-center">
             <Reveal direction="down">
               <p className="mb-3 text-sm font-semibold uppercase tracking-widest text-brand">
@@ -319,8 +322,9 @@ export default function TerceirizacaoFolhaPage() {
       </section>
 
       {/* ETAPAS */}
-      <section className="py-20 sm:py-24">
-        <div className="mx-auto max-w-6xl px-5 sm:px-6">
+      <section className="relative overflow-hidden py-20 sm:py-24">
+        <AbstractBG />
+        <div className="relative mx-auto max-w-6xl px-5 sm:px-6">
           <div className="mx-auto max-w-2xl text-center">
             <Reveal direction="down">
               <p className="mb-3 text-sm font-semibold uppercase tracking-widest text-brand">
@@ -400,8 +404,9 @@ export default function TerceirizacaoFolhaPage() {
       </section>
 
       {/* FAQ */}
-      <section className="py-20 sm:py-24">
-        <div className="mx-auto max-w-6xl px-5 sm:px-6">
+      <section className="relative overflow-hidden py-20 sm:py-24">
+        <AbstractBG />
+        <div className="relative mx-auto max-w-6xl px-5 sm:px-6">
           <div className="mx-auto max-w-2xl text-center">
             <Reveal direction="down">
               <p className="mb-3 text-sm font-semibold uppercase tracking-widest text-brand">

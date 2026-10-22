@@ -3,6 +3,7 @@ import Header from "../../Header";
 import SiteFooter from "../../components/SiteFooter";
 import Reveal from "../../components/Reveal";
 import SplitText from "../../components/SplitText";
+import AbstractBG from "../../components/AbstractBG";
 
 export const metadata: Metadata = {
   title: "Consultoria em SST em Goiânia | Prática Soluções Empresariais",
@@ -170,7 +171,15 @@ export default function ConsultoriaSSTPage() {
 
       {/* HERO */}
       <section className="relative overflow-hidden bg-[#0D243B] pt-32 pb-20 text-white sm:pt-40 sm:pb-28">
-        <div className="mx-auto max-w-6xl px-5 sm:px-6">
+        {/* Background decorativo no hero */}
+        <div className="pointer-events-none absolute inset-0 -z-0 overflow-hidden" aria-hidden="true">
+          <div className="absolute -right-40 -top-40 h-[600px] w-[600px] rounded-full bg-[#87B1D7]/10 blur-3xl" />
+          <div className="absolute -left-20 bottom-0 h-[400px] w-[400px] rounded-full bg-[#1FAF5A]/8 blur-3xl" />
+          <div className="absolute right-1/4 top-1/3 h-64 w-64 rounded-full border border-white/5" />
+          <div className="absolute left-10 top-20 h-32 w-32 rounded-full border border-[#87B1D7]/10" />
+          <div className="absolute inset-x-0 bottom-0 h-32 bg-gradient-to-t from-[#0D243B]" />
+        </div>
+        <div className="relative mx-auto max-w-6xl px-5 sm:px-6">
           <div className="grid items-center gap-12 lg:grid-cols-2">
             <div className="flex flex-col gap-6">
               <Reveal direction="down">
@@ -244,8 +253,9 @@ export default function ConsultoriaSSTPage() {
       </section>
 
       {/* SERVIÇOS */}
-      <section id="servicos" className="py-20 sm:py-24">
-        <div className="mx-auto max-w-6xl px-5 sm:px-6">
+      <section id="servicos" className="relative overflow-hidden py-20 sm:py-24">
+        <AbstractBG />
+        <div className="relative mx-auto max-w-6xl px-5 sm:px-6">
           <div className="mx-auto max-w-2xl text-center">
             <Reveal direction="down">
               <p className="mb-3 text-sm font-semibold uppercase tracking-widest text-brand">
@@ -317,8 +327,9 @@ export default function ConsultoriaSSTPage() {
       </section>
 
       {/* ETAPAS */}
-      <section className="py-20 sm:py-24">
-        <div className="mx-auto max-w-6xl px-5 sm:px-6">
+      <section className="relative overflow-hidden py-20 sm:py-24">
+        <AbstractBG />
+        <div className="relative mx-auto max-w-6xl px-5 sm:px-6">
           <div className="mx-auto max-w-2xl text-center">
             <Reveal direction="down">
               <p className="mb-3 text-sm font-semibold uppercase tracking-widest text-brand">
@@ -398,8 +409,9 @@ export default function ConsultoriaSSTPage() {
       </section>
 
       {/* FAQ */}
-      <section className="py-20 sm:py-24">
-        <div className="mx-auto max-w-6xl px-5 sm:px-6">
+      <section className="relative overflow-hidden py-20 sm:py-24">
+        <AbstractBG />
+        <div className="relative mx-auto max-w-6xl px-5 sm:px-6">
           <div className="mx-auto max-w-2xl text-center">
             <Reveal direction="down">
               <p className="mb-3 text-sm font-semibold uppercase tracking-widest text-brand">
