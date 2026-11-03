@@ -5,6 +5,7 @@ import Reveal from "../../components/Reveal";
 import SplitText from "../../components/SplitText";
 import EstagioSection from "../../components/EstagioSection";
 import AbstractBG from "../../components/AbstractBG";
+import { HeroParallaxBG } from "../../components/HeroParallaxBG";
 
 export const metadata: Metadata = {
   title:
@@ -161,17 +162,8 @@ export default function EstagioPage() {
       <Header />
 
       {/* HERO */}
-      <section className="relative flex min-h-screen items-center overflow-hidden bg-[#0D243B] text-white">
-        {/* Background decorativo */}
-        <div className="pointer-events-none absolute inset-0 -z-0 overflow-hidden" aria-hidden="true">
-          <div className="absolute -right-60 -top-60 h-[700px] w-[700px] rounded-full bg-[#87B1D7]/8 blur-3xl" />
-          <div className="absolute -left-40 bottom-0 h-[500px] w-[500px] rounded-full bg-[#1FAF5A]/6 blur-3xl" />
-          <div className="absolute right-1/3 top-1/4 h-80 w-80 rounded-full border border-white/[0.03]" />
-          <div className="absolute left-20 top-32 h-40 w-40 rounded-full border border-[#87B1D7]/[0.06]" />
-          <div className="absolute inset-x-0 bottom-0 h-40 bg-gradient-to-t from-[#0D243B] via-[#0D243B]/60 to-transparent" />
-        </div>
-
-        <div className="relative z-10 mx-auto w-full max-w-7xl px-5 py-32 sm:px-6">
+      <HeroParallaxBG className="text-white">
+        <div className="mx-auto w-full max-w-7xl py-32">
           <div className="grid items-center gap-10 lg:grid-cols-2 lg:gap-16">
             {/* Conteúdo esquerdo */}
             <div className="flex flex-col gap-7">
@@ -255,7 +247,7 @@ export default function EstagioPage() {
             </Reveal>
           </div>
         </div>
-      </section>
+      </HeroParallaxBG>
 
       {/* PARA EMPRESAS */}
       <section className="relative overflow-hidden py-20 sm:py-24">
