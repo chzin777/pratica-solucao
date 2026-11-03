@@ -85,7 +85,7 @@ export default function Calculadora() {
           label="Média dos 3 últimos salários"
           value={media}
           onChange={editarMedia}
-          hint="Calculada automaticamente — pode ajustar manualmente se quiser."
+          hint="Calculada automaticamente. Você pode ajustar manualmente se quiser."
         />
         <CampoNumero
           label="Meses trabalhados no último emprego"

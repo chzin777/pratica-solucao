@@ -186,7 +186,7 @@ export function HeroGeometric({
             <p className="mx-auto mb-4 max-w-xl px-2 text-base font-light leading-relaxed tracking-wide text-white/70 sm:px-4 sm:text-lg md:text-xl">
               Terceirize a folha de pagamento, os laudos de SST, o eSocial e a
               burocracia trabalhista. Prazos cumpridos e suporte humano de
-              verdade — você foca no negócio, a gente cuida do resto.
+              verdade. Você foca no negócio, a gente cuida do resto.
             </p>
             <TextType
               as="p"
@@ -216,7 +216,7 @@ export function HeroGeometric({
               href="#diagnostico"
               className="flex h-12 animate-pulse-ring items-center justify-center rounded-full bg-white px-7 text-sm font-semibold tracking-wide text-[#04355a] transition-colors hover:bg-white/90 hover:animate-none"
             >
-              QUERO UM DIAGNÓSTICO GRÁTIS
+              ANALISAR MINHA EMPRESA AGORA
             </a>
             <a
               href={WHATSAPP}

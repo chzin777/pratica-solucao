@@ -189,7 +189,7 @@ const COMPARATIVO = {
   com: [
     "Folha, férias e eSocial sempre em dia",
     "Especialista no WhatsApp quando você precisa",
-    "Cálculos conferidos — sem passivo trabalhista",
+    "Cálculos conferidos, sem passivo trabalhista",
     "Você foca em vender, a gente cuida do resto",
     "SST monitorada e dentro da lei o ano todo",
   ],
@@ -595,7 +595,7 @@ export default function Home() {
                 <p className="mt-4 text-base text-slate-600 sm:text-lg">
                   Emita seu e-CPF ou e-CNPJ com agilidade e segurança. Assine
                   documentos, acesse o eSocial e a Receita e mantenha tudo em
-                  conformidade — online ou presencial.
+                  conformidade, online ou presencial.
                 </p>
               </Reveal>
 
@@ -650,7 +650,7 @@ export default function Home() {
             <Reveal delay={0.15}>
               <p className="mt-4 text-lg text-slate-600">
                 Responda 3 perguntas rápidas e fale com um especialista já
-                sabendo da sua situação — sem repetir nada.
+                sabendo da sua situação, sem repetir nada.
               </p>
             </Reveal>
           </div>

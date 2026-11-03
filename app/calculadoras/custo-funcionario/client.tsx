@@ -56,7 +56,7 @@ export default function Calculadora() {
         </div>
         <p className="text-xs text-slate-400">
           No Simples Nacional não há INSS patronal nem contribuição a terceiros
-          sobre a folha — o cálculo considera apenas FGTS e provisões.
+          sobre a folha. O cálculo considera apenas FGTS e provisões.
         </p>
       </div>
 

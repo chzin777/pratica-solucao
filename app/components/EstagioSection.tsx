@@ -435,7 +435,7 @@ export default function EstagioSection() {
                   method="POST"
                   encType="multipart/form-data"
                 >
-                  <input type="hidden" name="_subject" value="Novo cadastro de estudante — Programa de Estágio" />
+                  <input type="hidden" name="_subject" value="Novo cadastro de estudante | Programa de Estágio" />
                   <input type="hidden" name="_template" value="table" />
                   <input type="hidden" name="_next" value="https://www.praticasolucao.com.br/?estagio=enviado#estagio" />
                   <input type="hidden" name="_autoresponse" value="Olá! Recebemos o seu cadastro no Programa de Estágio da Prática Soluções Empresariais. Quando surgir uma vaga compatível com o seu perfil, entraremos em contato pelo WhatsApp. Boa sorte!" />
@@ -684,11 +684,11 @@ export default function EstagioSection() {
                         { label: "Mensagem", name: "mensagem" },
                       ].map(({ label, name }) => {
                         const form = document.querySelector("#pe-form-empresa") as HTMLFormElement | null;
-                        const val = form ? String(new FormData(form).get(name) || "—").trim() : "—";
+                        const val = form ? String(new FormData(form).get(name) || "").trim() : "";
                         return (
                           <div key={name} className="pe-review-item">
                             <span className="pe-review-label">{label}</span>
-                            <span className="pe-review-value">{val || "—"}</span>
+                            <span className="pe-review-value">{val || ""}</span>
                           </div>
                         );
                       })}

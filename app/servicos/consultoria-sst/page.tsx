@@ -32,11 +32,11 @@ const WHATSAPP_SST =
 
 const SERVICOS = [
   {
-    titulo: "PGR — Programa de Gerenciamento de Riscos",
+    titulo: "PGR (Programa de Gerenciamento de Riscos)",
     desc: "Inventário de riscos físicos, químicos, biológicos, ergonômicos e de acidentes, incluindo os riscos psicossociais exigidos pela NR-1 desde maio de 2026. Plano de ação com prioridades e prazos.",
   },
   {
-    titulo: "PCMSO — Programa de Controle Médico",
+    titulo: "PCMSO (Programa de Controle Médico)",
     desc: "Definição dos exames obrigatórios por função, cronograma anual e emissão dos ASOs (admissional, periódico, retorno ao trabalho, mudança de risco e demissional).",
   },
   {

@@ -148,7 +148,7 @@ export function SiteFooter() {
                 <span className="mt-0.5 text-sky-300">
                   <IconPin />
                 </span>
-                Goiânia · GO — Atendimento online
+                Goiânia · GO | Atendimento online
               </li>
             </ul>
           </div>

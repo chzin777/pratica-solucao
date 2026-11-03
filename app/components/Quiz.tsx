@@ -22,7 +22,7 @@ const STEPS: Step[] = [
     legenda: "Onde podemos te ajudar primeiro.",
     opcoes: [
       "Folha e departamento pessoal tomam meu tempo",
-      "Medo de multa — SST e eSocial",
+      "Medo de multa, SST e eSocial",
       "Quero abrir ou regularizar a empresa",
       "Preciso de certificado digital",
     ],
@@ -161,7 +161,7 @@ export default function Quiz() {
                 Tudo pronto! Um especialista já pode te atender.
               </h3>
               <p className="mx-auto mt-2 max-w-md text-sm text-white/60">
-                Suas respostas vão junto na conversa — sem precisar repetir nada.
+                Suas respostas vão junto na conversa, sem precisar repetir nada.
                 É só clicar e falar com a gente.
               </p>
 

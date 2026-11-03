@@ -36,11 +36,11 @@ const MODELOS = [
     desc: "Para a empresa emitir NF-e, NFC-e, CT-e, acessar o e-CAC e enviar declarações obrigatórias.",
   },
   {
-    titulo: "Modelo A1 — Arquivo",
+    titulo: "Modelo A1 (Arquivo)",
     desc: "Fica instalado no computador ou no servidor. Ideal para quem usa emissor de notas ou sistema contábil.",
   },
   {
-    titulo: "Modelo A3 — Token ou cartão",
+    titulo: "Modelo A3 (Token ou cartão)",
     desc: "Portátil e com validade em qualquer máquina. Ideal para quem precisa levar o certificado consigo.",
   },
 ];
