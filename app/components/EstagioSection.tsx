@@ -354,10 +354,9 @@ export default function EstagioSection() {
       <div className="mx-auto max-w-[1120px] px-5 sm:px-6">
         {/* Header */}
         <header className="pe-head">
-          <span className="pe-eyebrow">Programa de Estágio</span>
           <h2 className="pe-title">Estágio sem burocracia, do anúncio ao contrato</h2>
           <p className="pe-lead">
-            Simplificamos o estágio para empresas e estudantes. Anunciamos a vaga e fazemos toda a integração entre estudante, empresa e instituição de ensino, além da gestão completa do seguro, dos contratos e do recesso (as férias do estagiário).
+            Da vaga ao contrato assinado: seleção, seguro, integração com a instituição e gestão do recesso.
           </p>
           <div className="pe-promise">
             <span>
@@ -399,21 +398,8 @@ export default function EstagioSection() {
             <div className="pe-grid">
               <div className="pe-info">
                 <span className="pe-badge">Cadastro 100% gratuito</span>
-                <h3>Quero me candidatar a vagas de estágio</h3>
-                <p>Cadastre-se uma vez e concorra às vagas de estágio que a Prática divulga para empresas de Goiânia e região. Você não paga nada, nem no cadastro, nem na contratação.</p>
-                <ul className="pe-checks">
-                  <li>Cadastro e participação totalmente gratuitos</li>
-                  <li>Vagas compatíveis com o seu curso e horário das aulas</li>
-                  <li>Contrato dentro da Lei do Estágio, com seguro e recesso garantidos</li>
-                  <li>Acompanhamento da Prática do início ao fim do estágio</li>
-                </ul>
-                <h4>Como funciona</h4>
-                <ol className="pe-mini-steps">
-                  <li>Preencha o cadastro e anexe o seu currículo.</li>
-                  <li>Quando surgir uma vaga com o seu perfil, chamamos você no WhatsApp.</li>
-                  <li>Aprovado na entrevista, a Prática cuida do contrato com a empresa e com a sua instituição de ensino.</li>
-                </ol>
-                <p className="pe-switch">É empresário e quer contratar? <a href="#estagio-empresa" onClick={(e) => { e.preventDefault(); switchTab("empresa"); }}>Veja como funciona para empresas →</a></p>
+                <h3>Cadastre-se e concorra a vagas</h3>
+                <p>Preencha o formulário ao lado. Quando surgir uma vaga compatível com o seu perfil, chamamos você no WhatsApp.</p>
               </div>
 
               <div className="pe-card">
