@@ -248,7 +248,7 @@ export default function Home() {
           <div className="mt-12 grid gap-5 sm:mt-16 sm:grid-cols-2 lg:grid-cols-4">
             {DIFERENCIAIS.map((d, i) => (
               <Reveal key={d.titulo} delay={i * 0.1} direction="up">
-                <div className="h-full rounded-2xl border border-slate-200 bg-white/80 p-6 shadow-sm backdrop-blur-sm transition-shadow hover:shadow-md">
+                <div className="h-full rounded-2xl border border-slate-200 bg-white/80 p-6 shadow-sm backdrop-blur-sm transition-all duration-300 hover:scale-105 hover:shadow-md">
                   <span className="flex h-12 w-12 items-center justify-center rounded-xl bg-brand/10">
                     <svg
                       viewBox="0 0 24 24"
