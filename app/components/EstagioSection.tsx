@@ -225,8 +225,8 @@ export default function EstagioSection() {
         .pe-panel { animation: peFade .35s ease; }
         @keyframes peFade { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
         .pe-grid { display: grid; grid-template-columns: 1fr; gap: 28px; align-items: start; }
-        @media (min-width: 920px) { .pe-grid { grid-template-columns: 1fr 1.05fr; gap: 40px; } }
-        .pe-card { background: #fff; border: 1px solid #dbe4ee; border-radius: 20px; padding: 28px; box-shadow: 0 12px 32px rgba(13,36,59,.06); }
+        @media (min-width: 920px) { .pe-grid { grid-template-columns: 1fr 1fr; gap: 40px; } }
+        .pe-card { background: #fff; border: 1px solid #dbe4ee; border-radius: 20px; padding: 28px; box-shadow: 0 12px 32px rgba(13,36,59,.06); width: 100%; }
         .pe-info h3 { font-size: clamp(24px, 3vw, 30px); margin-bottom: 12px; }
         .pe-info > p { font-size: 16px; margin-bottom: 20px; }
         .pe-badge { display: inline-flex; align-items: center; gap: 6px; font-size: 13px; font-weight: 800; letter-spacing: .04em; text-transform: uppercase; color: #14633a; background: #e3f6eb; border: 1px solid #bfe6cf; padding: 5px 12px; border-radius: 999px; margin-bottom: 14px; }
