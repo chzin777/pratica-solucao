@@ -143,31 +143,6 @@ const FAQ = [
   },
 ];
 
-const PAINEL_FOLHA = [
-  { item: "Folha mensal", status: "ok", label: "Em dia" },
-  { item: "eSocial / DCTFWeb", status: "ok", label: "Enviado" },
-  { item: "FGTS Digital", status: "warn", label: "Vence em 5 dias" },
-  { item: "Férias programadas", status: "info", label: "3 em jan/2027" },
-  { item: "Provisão 13º", status: "ok", label: "Atualizada" },
-];
-
-function PillStatus({ status, label }: { status: string; label: string }) {
-  const styles: Record<string, string> = {
-    ok: "bg-emerald-100 text-emerald-800 dark:bg-emerald-900/40 dark:text-emerald-200",
-    warn:
-      "bg-amber-100 text-amber-800 dark:bg-amber-900/40 dark:text-amber-200",
-    risk: "bg-red-100 text-red-800 dark:bg-red-900/40 dark:text-red-200",
-    info: "bg-blue-100 text-blue-800 dark:bg-blue-900/40 dark:text-blue-200",
-  };
-  return (
-    <span
-      className={`inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-semibold uppercase tracking-wide ${styles[status] || styles.info}`}
-    >
-      {label}
-    </span>
-  );
-}
-
 export default function TerceirizacaoFolhaPage() {
   return (
     <>
@@ -253,36 +228,6 @@ export default function TerceirizacaoFolhaPage() {
           </div>
         </div>
       </HeroParallaxBG>
-
-      {/* PAINEL FOLHA (mantido abaixo do hero) */}
-      <section className="bg-[#0D243B] py-12 text-white">
-        <div className="mx-auto max-w-6xl px-5 sm:px-6">
-          <Reveal direction="up" delay={0.1}>
-            <div className="overflow-hidden rounded-xl border border-[#244563] bg-[#14314F] shadow-2xl">
-              <div className="flex items-center justify-between border-b border-[#244563] px-5 py-4">
-                <span className="text-sm font-bold">Painel do DP</span>
-                <span className="font-mono text-xs uppercase tracking-wider text-[#B9CBDD]">
-                  Visão mensal
-                </span>
-              </div>
-              <div className="divide-y divide-[#244563]">
-                {PAINEL_FOLHA.map((row) => (
-                  <div
-                    key={row.item}
-                    className="flex items-center justify-between px-5 py-3.5"
-                  >
-                    <span className="text-sm font-semibold">{row.item}</span>
-                    <PillStatus status={row.status} label={row.label} />
-                  </div>
-                ))}
-              </div>
-              <div className="border-t border-[#244563] bg-[#0D243B] px-5 py-3 text-xs text-[#B9CBDD]">
-                Cada obrigação com responsável, prazo e comprovante.
-              </div>
-            </div>
-          </Reveal>
-        </div>
-      </section>
 
       {/* SERVIÇOS */}
       <section id="servicos" className="relative overflow-hidden py-20 sm:py-24">
