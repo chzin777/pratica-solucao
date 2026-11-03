@@ -167,13 +167,6 @@ export default function EstagioPage() {
           <div className="grid items-center gap-10 lg:grid-cols-2 lg:gap-16">
             {/* Conteúdo esquerdo */}
             <div className="flex flex-col gap-7">
-              <Reveal direction="down">
-                <span className="inline-flex items-center gap-2 rounded-full border border-[#87B1D7]/30 bg-[#87B1D7]/10 px-4 py-1.5 text-xs font-bold uppercase tracking-[0.14em] text-[#87B1D7]">
-                  <span className="h-1.5 w-1.5 rounded-full bg-[#87B1D7]" aria-hidden="true" />
-                  Programa de Estágio
-                </span>
-              </Reveal>
-
               <SplitText
                 text="Estágio sem burocracia, do anúncio ao contrato"
                 tag="h1"
