@@ -63,9 +63,9 @@ function ElegantShape({
 }
 
 export function HeroGeometric({
-  badge = "Departamento Pessoal · SST · Goiânia-GO",
-  title1 = "Seu departamento pessoal",
-  title2 = "terceirizado, sem dor de cabeça",
+  badge = "Contabilidade · DP · SST · Goiânia-GO",
+  title1 = "Sua empresa em dia,",
+  title2 = "sem burocracia nem multa",
 }: {
   badge?: string;
   title1?: string;
