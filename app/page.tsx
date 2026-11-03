@@ -248,7 +248,7 @@ export default function Home() {
           <div className="mt-12 grid gap-5 sm:mt-16 sm:grid-cols-2 lg:grid-cols-4">
             {DIFERENCIAIS.map((d, i) => (
               <Reveal key={d.titulo} delay={i * 0.1} direction="up">
-                <div className="h-full rounded-2xl border border-slate-200 bg-white/80 p-6 shadow-sm backdrop-blur-sm transition-all duration-300 hover:scale-105 hover:shadow-md">
+                <div className="h-full rounded-2xl border border-slate-200 bg-white/80 p-6 shadow-sm backdrop-blur-sm transition-all duration-300 hover:scale-110 hover:shadow-md">
                   <span className="flex h-12 w-12 items-center justify-center rounded-xl bg-brand/10">
                     <svg
                       viewBox="0 0 24 24"
@@ -283,12 +283,6 @@ export default function Home() {
         <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_30%_20%,rgba(135,177,215,0.18),transparent_55%),radial-gradient(circle_at_80%_80%,rgba(13,36,59,0.06),transparent_50%)]" aria-hidden="true" />
         <div className="relative mx-auto max-w-6xl px-5 sm:px-6">
           <div className="mx-auto max-w-2xl text-center">
-            <Reveal direction="down">
-              <span className="inline-flex items-center gap-2 rounded-full border border-brand/20 bg-white px-4 py-1.5 text-xs font-bold uppercase tracking-[0.14em] text-brand shadow-sm">
-                <span className="h-1.5 w-1.5 rounded-full bg-brand" aria-hidden="true" />
-                Portfólio completo
-              </span>
-            </Reveal>
             <SplitText
               text="Nossos Serviços"
               tag="h2"
