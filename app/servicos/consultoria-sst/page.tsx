@@ -4,6 +4,7 @@ import SiteFooter from "../../components/SiteFooter";
 import Reveal from "../../components/Reveal";
 import SplitText from "../../components/SplitText";
 import AbstractBG from "../../components/AbstractBG";
+import { HeroParallaxBG } from "../../components/HeroParallaxBG";
 
 export const metadata: Metadata = {
   title: "Consultoria em SST em Goiânia | Prática Soluções Empresariais",
@@ -170,87 +171,94 @@ export default function ConsultoriaSSTPage() {
       <Header />
 
       {/* HERO */}
-      <section className="relative overflow-hidden bg-[#0D243B] pt-32 pb-20 text-white sm:pt-40 sm:pb-28">
-        {/* Background decorativo no hero */}
-        <div className="pointer-events-none absolute inset-0 -z-0 overflow-hidden" aria-hidden="true">
-          <div className="absolute -right-40 -top-40 h-[600px] w-[600px] rounded-full bg-[#87B1D7]/10 blur-3xl" />
-          <div className="absolute -left-20 bottom-0 h-[400px] w-[400px] rounded-full bg-[#1FAF5A]/8 blur-3xl" />
-          <div className="absolute right-1/4 top-1/3 h-64 w-64 rounded-full border border-white/5" />
-          <div className="absolute left-10 top-20 h-32 w-32 rounded-full border border-[#87B1D7]/10" />
-          <div className="absolute inset-x-0 bottom-0 h-32 bg-gradient-to-t from-[#0D243B]" />
-        </div>
-        <div className="relative mx-auto max-w-6xl px-5 sm:px-6">
-          <div className="grid items-center gap-12 lg:grid-cols-2">
-            <div className="flex flex-col gap-6">
+      <HeroParallaxBG className="text-white">
+        <div className="mx-auto w-full max-w-7xl py-32">
+          <div className="grid items-center gap-10 lg:grid-cols-2 lg:gap-16">
+            {/* Conteúdo esquerdo */}
+            <div className="flex flex-col gap-7">
               <Reveal direction="down">
-                <p className="text-sm font-bold uppercase tracking-[0.12em] text-[#87B1D7]">
+                <span className="inline-flex items-center gap-2 rounded-full border border-[#87B1D7]/30 bg-[#87B1D7]/10 px-4 py-1.5 text-xs font-bold uppercase tracking-[0.14em] text-[#87B1D7]">
+                  <span className="h-1.5 w-1.5 rounded-full bg-[#87B1D7]" aria-hidden="true" />
                   Consultoria em SST
-                </p>
+                </span>
               </Reveal>
+
               <SplitText
                 text="Saúde e segurança do trabalho organizada e sem multa"
                 tag="h1"
                 textAlign="left"
-                className="text-4xl font-extrabold leading-tight tracking-tight sm:text-5xl"
+                className="text-4xl font-extrabold leading-[1.1] tracking-tight sm:text-5xl lg:text-6xl"
                 splitType="words"
                 delay={25}
                 duration={0.7}
               />
+
               <Reveal delay={0.15}>
-                <p className="max-w-xl text-lg text-[#B9CBDD]">
-                  PGR com riscos psicossociais, PCMSO, LTCAT, laudos de
-                  insalubridade, PMOC e eventos de SST no eSocial. Prazos
-                  controlados e atendimento online para empresas de Goiânia e de
-                  todo o Brasil.
+                <p className="max-w-lg text-lg leading-relaxed text-[#B9CBDD] sm:text-xl">
+                  PGR, PCMSO, LTCAT, eSocial e laudos técnicos com prazos controlados e atendimento online.
                 </p>
               </Reveal>
+
               <Reveal delay={0.25}>
-                <div className="flex flex-wrap gap-3 pt-2">
+                <div className="flex flex-wrap gap-4 pt-1">
                   <a
                     href={WHATSAPP_SST}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-flex h-12 items-center justify-center rounded-lg bg-[#87B1D7] px-6 text-sm font-bold uppercase tracking-wide text-[#0D243B] transition-colors hover:bg-[#a3c5e3]"
+                    className="inline-flex h-14 items-center justify-center rounded-full bg-[#87B1D7] px-8 text-sm font-bold uppercase tracking-wide text-[#0D243B] transition-all hover:bg-[#a3c5e3] hover:shadow-lg hover:shadow-[#87B1D7]/25"
                   >
                     Diagnóstico gratuito
                   </a>
                   <a
                     href="#servicos"
-                    className="inline-flex h-12 items-center justify-center rounded-lg border border-[#244563] px-6 text-sm font-bold uppercase tracking-wide text-white transition-colors hover:border-[#87B1D7] hover:text-[#87B1D7]"
+                    className="inline-flex h-14 items-center justify-center rounded-full border border-white/20 px-8 text-sm font-bold uppercase tracking-wide text-white transition-all hover:border-white/50 hover:bg-white/5"
                   >
                     Ver serviços de SST
                   </a>
                 </div>
               </Reveal>
-            </div>
 
-            <Reveal direction="left" delay={0.2}>
-              <div className="overflow-hidden rounded-xl border border-[#244563] bg-[#14314F] shadow-2xl">
-                <div className="flex items-center justify-between border-b border-[#244563] px-5 py-4">
-                  <span className="text-sm font-bold">Painel de SST</span>
-                  <span className="font-mono text-xs uppercase tracking-wider text-[#B9CBDD]">
-                    Visão geral
+              {/* Mini badges de confiança */}
+              <Reveal delay={0.35}>
+                <div className="flex flex-wrap gap-x-6 gap-y-2 pt-4 text-xs font-medium text-[#B9CBDD]/70">
+                  <span className="flex items-center gap-1.5">
+                    <svg className="h-4 w-4 text-emerald-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" /></svg>
+                    Riscos psicossociais NR-1
+                  </span>
+                  <span className="flex items-center gap-1.5">
+                    <svg className="h-4 w-4 text-emerald-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" /></svg>
+                    Eventos eSocial em dia
+                  </span>
+                  <span className="flex items-center gap-1.5">
+                    <svg className="h-4 w-4 text-emerald-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" /></svg>
+                    Laudos assinados por profissionais habilitados
                   </span>
                 </div>
-                <div className="divide-y divide-[#244563]">
-                  {CHECKLIST_PANEL.map((row) => (
-                    <div
-                      key={row.item}
-                      className="flex items-center justify-between px-5 py-3.5"
-                    >
-                      <span className="text-sm font-semibold">{row.item}</span>
-                      <PillStatus status={row.status} label={row.label} />
-                    </div>
-                  ))}
-                </div>
-                <div className="border-t border-[#244563] bg-[#0D243B] px-5 py-3 text-xs text-[#B9CBDD]">
-                  Cada documento com data de validade e responsável definido.
+              </Reveal>
+            </div>
+
+            {/* Vídeo lado direito */}
+            <Reveal direction="left" delay={0.2}>
+              <div className="relative mx-auto max-w-lg lg:max-w-none">
+                {/* Glow atrás do vídeo */}
+                <div className="absolute -inset-4 rounded-3xl bg-gradient-to-br from-[#87B1D7]/20 via-[#87B1D7]/10 to-transparent blur-2xl" aria-hidden="true" />
+                <div className="relative overflow-hidden rounded-2xl border border-white/10 shadow-2xl shadow-black/40">
+                  <video
+                    src="https://cdn.dribbble.com/userupload/49079385/file/aa13a67aed8954076fb11a543d0c93a5.mp4"
+                    autoPlay
+                    loop
+                    muted
+                    playsInline
+                    className="w-full object-cover"
+                  />
+                  {/* Overlay sutil para harmonizar com o tema escuro */}
+                  <div className="pointer-events-none absolute inset-0 bg-[#0D243B]/10" aria-hidden="true" />
                 </div>
               </div>
             </Reveal>
           </div>
         </div>
-      </section>
+      </HeroParallaxBG>
 
       {/* SERVIÇOS */}
       <section id="servicos" className="relative overflow-hidden py-20 sm:py-24">
