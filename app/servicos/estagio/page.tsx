@@ -177,12 +177,6 @@ export default function EstagioPage() {
                 duration={0.7}
               />
 
-              <Reveal delay={0.15}>
-                <p className="max-w-lg text-lg leading-relaxed text-[#B9CBDD] sm:text-xl">
-                  Do anúncio ao contrato assinado: seleção, seguro, integração e gestão completa do recesso.
-                </p>
-              </Reveal>
-
               <Reveal delay={0.25}>
                 <div className="flex flex-wrap gap-4 pt-1">
                   <a
@@ -278,18 +272,18 @@ export default function EstagioPage() {
         </div>
       </section>
 
-      {/* COMO FUNCIONA A CONTRATAÇÃO */}
-      <section className="relative overflow-hidden bg-slate-50 py-20 sm:py-24">
+      {/* COMO FUNCIONA — STEPPER */}
+      <section className="relative overflow-hidden bg-slate-50 py-20 sm:py-28">
         <AbstractBG className="opacity-60" />
         <div className="relative mx-auto max-w-6xl px-5 sm:px-6">
           <div className="mx-auto max-w-2xl text-center">
             <Reveal direction="down">
               <p className="mb-3 text-sm font-semibold uppercase tracking-widest text-brand">
-                Como funciona
+                Passo a passo
               </p>
             </Reveal>
             <SplitText
-              text="Do anúncio da vaga ao fim do contrato"
+              text="Do anúncio ao contrato em 3 etapas"
               tag="h2"
               className="text-3xl font-bold tracking-tight text-brand-deep sm:text-4xl"
               splitType="chars"
@@ -297,22 +291,30 @@ export default function EstagioPage() {
               duration={0.7}
             />
           </div>
-          <div className="mt-14 grid gap-8 md:grid-cols-3">
-            {ETAPAS_CONTRATACAO.map((e, i) => (
-              <Reveal key={e.n} delay={i * 0.12}>
-                <div className="h-full border-t-[3px] border-brand pt-6">
-                  <span className="text-xs font-bold uppercase tracking-widest text-brand">
-                    {e.n}
-                  </span>
-                  <h3 className="mt-2 text-lg font-semibold text-brand-deep">
-                    {e.titulo}
-                  </h3>
-                  <p className="mt-3 text-sm leading-relaxed text-slate-600">
-                    {e.desc}
-                  </p>
-                </div>
-              </Reveal>
-            ))}
+
+          {/* Stepper visual */}
+          <div className="relative mt-16">
+            {/* Linha conectora (desktop) */}
+            <div className="absolute left-[16.67%] right-[16.67%] top-10 hidden h-0.5 bg-gradient-to-r from-brand/20 via-brand/40 to-brand/20 md:block" aria-hidden="true" />
+
+            <div className="grid gap-10 md:grid-cols-3">
+              {ETAPAS_CONTRATACAO.map((e, i) => (
+                <Reveal key={e.n} delay={i * 0.15} direction="up">
+                  <div className="group relative flex flex-col items-center text-center">
+                    {/* Número circular destacado */}
+                    <div className="relative z-10 flex h-20 w-20 items-center justify-center rounded-full border-4 border-white bg-brand text-3xl font-extrabold text-white shadow-lg shadow-brand/30 transition-transform duration-300 group-hover:scale-110">
+                      {e.n.replace("0", "")}
+                    </div>
+                    <h3 className="mt-6 text-xl font-bold text-brand-deep">
+                      {e.titulo}
+                    </h3>
+                    <p className="mt-3 max-w-xs text-sm leading-relaxed text-slate-600">
+                      {e.desc}
+                    </p>
+                  </div>
+                </Reveal>
+              ))}
+            </div>
           </div>
         </div>
       </section>
