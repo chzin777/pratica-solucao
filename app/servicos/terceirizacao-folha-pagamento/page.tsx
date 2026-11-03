@@ -4,6 +4,7 @@ import SiteFooter from "../../components/SiteFooter";
 import Reveal from "../../components/Reveal";
 import SplitText from "../../components/SplitText";
 import AbstractBG from "../../components/AbstractBG";
+import { HeroParallaxBG } from "../../components/HeroParallaxBG";
 
 export const metadata: Metadata = {
   title:
@@ -173,77 +174,113 @@ export default function TerceirizacaoFolhaPage() {
       <Header />
 
       {/* HERO */}
-      <section className="relative overflow-hidden bg-[#0D243B] pt-32 pb-20 text-white sm:pt-40 sm:pb-28">
-        <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_70%_15%,rgba(135,177,215,0.22),transparent_55%),radial-gradient(circle_at_20%_80%,rgba(31,175,90,0.12),transparent_50%)]" aria-hidden="true" />
-        <div className="relative mx-auto max-w-6xl px-5 sm:px-6">
-          <div className="grid items-center gap-12 lg:grid-cols-2">
-            <div className="flex flex-col gap-6">
-              <Reveal direction="down">
-                <p className="text-sm font-bold uppercase tracking-[0.12em] text-[#87B1D7]">
-                  Terceirização de Folha de Pagamento
-                </p>
-              </Reveal>
+      <HeroParallaxBG className="text-white">
+        <div className="mx-auto w-full max-w-7xl py-32">
+          <div className="grid items-center gap-10 lg:grid-cols-2 lg:gap-16">
+            {/* Conteúdo esquerdo */}
+            <div className="flex flex-col gap-7">
               <SplitText
                 text="Departamento pessoal completo, sem montar equipe interna"
                 tag="h1"
                 textAlign="left"
-                className="text-4xl font-extrabold leading-tight tracking-tight sm:text-5xl"
+                className="text-4xl font-extrabold leading-[1.1] tracking-tight sm:text-5xl lg:text-6xl"
                 splitType="words"
                 delay={25}
                 duration={0.7}
               />
+
               <Reveal delay={0.15}>
-                <p className="max-w-xl text-lg text-[#B9CBDD]">
-                  Folha, férias, 13º, rescisões, eSocial, FGTS Digital e
-                  DCTFWeb conferidos com a convenção coletiva. Atendimento
-                  online para empresas e escritórios de contabilidade.
+                <p className="max-w-lg text-lg leading-relaxed text-[#B9CBDD] sm:text-xl">
+                  Folha, férias, 13º, rescisões, eSocial, FGTS Digital e DCTFWeb conferidos com a convenção coletiva.
                 </p>
               </Reveal>
+
               <Reveal delay={0.25}>
-                <div className="flex flex-wrap gap-3 pt-2">
+                <div className="flex flex-wrap gap-4 pt-1">
                   <a
                     href={WHATSAPP_FOLHA}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-flex h-12 items-center justify-center rounded-lg bg-[#87B1D7] px-6 text-sm font-bold uppercase tracking-wide text-[#0D243B] transition-colors hover:bg-[#a3c5e3]"
+                    className="inline-flex h-14 items-center justify-center rounded-full bg-[#87B1D7] px-8 text-sm font-bold uppercase tracking-wide text-[#0D243B] transition-all hover:bg-[#a3c5e3] hover:shadow-lg hover:shadow-[#87B1D7]/25"
                   >
                     Agendar reunião gratuita
                   </a>
                   <a
                     href="#servicos"
-                    className="inline-flex h-12 items-center justify-center rounded-lg border border-[#244563] px-6 text-sm font-bold uppercase tracking-wide text-white transition-colors hover:border-[#87B1D7] hover:text-[#87B1D7]"
+                    className="inline-flex h-14 items-center justify-center rounded-full border border-white/20 px-8 text-sm font-bold uppercase tracking-wide text-white transition-all hover:border-white/50 hover:bg-white/5"
                   >
                     Ver o que está incluso
                   </a>
                 </div>
               </Reveal>
-            </div>
 
-            <Reveal direction="left" delay={0.2}>
-              <div className="overflow-hidden rounded-xl border border-[#244563] bg-[#14314F] shadow-2xl">
-                <div className="flex items-center justify-between border-b border-[#244563] px-5 py-4">
-                  <span className="text-sm font-bold">Painel do DP</span>
-                  <span className="font-mono text-xs uppercase tracking-wider text-[#B9CBDD]">
-                    Visão mensal
+              {/* Mini badges de confiança */}
+              <Reveal delay={0.35}>
+                <div className="flex flex-wrap gap-x-6 gap-y-2 pt-4 text-xs font-medium text-[#B9CBDD]/70">
+                  <span className="flex items-center gap-1.5">
+                    <svg className="h-4 w-4 text-emerald-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" /></svg>
+                    Conformidade com a CCT
+                  </span>
+                  <span className="flex items-center gap-1.5">
+                    <svg className="h-4 w-4 text-emerald-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" /></svg>
+                    eSocial e FGTS Digital em dia
+                  </span>
+                  <span className="flex items-center gap-1.5">
+                    <svg className="h-4 w-4 text-emerald-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" /></svg>
+                    Atendimento 100% online
                   </span>
                 </div>
-                <div className="divide-y divide-[#244563]">
-                  {PAINEL_FOLHA.map((row) => (
-                    <div
-                      key={row.item}
-                      className="flex items-center justify-between px-5 py-3.5"
-                    >
-                      <span className="text-sm font-semibold">{row.item}</span>
-                      <PillStatus status={row.status} label={row.label} />
-                    </div>
-                  ))}
-                </div>
-                <div className="border-t border-[#244563] bg-[#0D243B] px-5 py-3 text-xs text-[#B9CBDD]">
-                  Cada obrigação com responsável, prazo e comprovante.
+              </Reveal>
+            </div>
+
+            {/* Imagem lado direito */}
+            <Reveal direction="left" delay={0.2}>
+              <div className="relative mx-auto max-w-lg lg:max-w-none">
+                {/* Glow atrás da imagem */}
+                <div className="absolute -inset-4 rounded-3xl bg-gradient-to-br from-[#87B1D7]/20 via-[#87B1D7]/10 to-transparent blur-2xl" aria-hidden="true" />
+                <div className="relative overflow-hidden rounded-2xl border border-white/10 shadow-2xl shadow-black/40">
+                  <img
+                    src="https://media.licdn.com/dms/image/v2/D4E12AQFptZ2Hc-X9bA/article-cover_image-shrink_600_2000/article-cover_image-shrink_600_2000/0/1702405223824?e=2147483647&v=beta&t=LogHo2Db5w1OUUUU5V2_P2rc9Fyjo76WqnfLWb-e394"
+                    alt="Ilustração de departamento pessoal e folha de pagamento"
+                    className="w-full object-cover"
+                    loading="eager"
+                  />
+                  {/* Overlay sutil para harmonizar com o tema escuro */}
+                  <div className="pointer-events-none absolute inset-0 bg-[#0D243B]/10" aria-hidden="true" />
                 </div>
               </div>
             </Reveal>
           </div>
+        </div>
+      </HeroParallaxBG>
+
+      {/* PAINEL FOLHA (mantido abaixo do hero) */}
+      <section className="bg-[#0D243B] py-12 text-white">
+        <div className="mx-auto max-w-6xl px-5 sm:px-6">
+          <Reveal direction="up" delay={0.1}>
+            <div className="overflow-hidden rounded-xl border border-[#244563] bg-[#14314F] shadow-2xl">
+              <div className="flex items-center justify-between border-b border-[#244563] px-5 py-4">
+                <span className="text-sm font-bold">Painel do DP</span>
+                <span className="font-mono text-xs uppercase tracking-wider text-[#B9CBDD]">
+                  Visão mensal
+                </span>
+              </div>
+              <div className="divide-y divide-[#244563]">
+                {PAINEL_FOLHA.map((row) => (
+                  <div
+                    key={row.item}
+                    className="flex items-center justify-between px-5 py-3.5"
+                  >
+                    <span className="text-sm font-semibold">{row.item}</span>
+                    <PillStatus status={row.status} label={row.label} />
+                  </div>
+                ))}
+              </div>
+              <div className="border-t border-[#244563] bg-[#0D243B] px-5 py-3 text-xs text-[#B9CBDD]">
+                Cada obrigação com responsável, prazo e comprovante.
+              </div>
+            </div>
+          </Reveal>
         </div>
       </section>
 
