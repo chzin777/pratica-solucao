@@ -176,13 +176,6 @@ export default function ConsultoriaSSTPage() {
           <div className="grid items-center gap-10 lg:grid-cols-2 lg:gap-16">
             {/* Conteúdo esquerdo */}
             <div className="flex flex-col gap-7">
-              <Reveal direction="down">
-                <span className="inline-flex items-center gap-2 rounded-full border border-[#87B1D7]/30 bg-[#87B1D7]/10 px-4 py-1.5 text-xs font-bold uppercase tracking-[0.14em] text-[#87B1D7]">
-                  <span className="h-1.5 w-1.5 rounded-full bg-[#87B1D7]" aria-hidden="true" />
-                  Consultoria em SST
-                </span>
-              </Reveal>
-
               <SplitText
                 text="Saúde e segurança do trabalho organizada e sem multa"
                 tag="h1"
@@ -207,13 +200,13 @@ export default function ConsultoriaSSTPage() {
                     rel="noopener noreferrer"
                     className="inline-flex h-14 items-center justify-center rounded-full bg-[#87B1D7] px-8 text-sm font-bold uppercase tracking-wide text-[#0D243B] transition-all hover:bg-[#a3c5e3] hover:shadow-lg hover:shadow-[#87B1D7]/25"
                   >
-                    Diagnóstico gratuito
+                    Quero proteger minha empresa
                   </a>
                   <a
                     href="#servicos"
                     className="inline-flex h-14 items-center justify-center rounded-full border border-white/20 px-8 text-sm font-bold uppercase tracking-wide text-white transition-all hover:border-white/50 hover:bg-white/5"
                   >
-                    Ver serviços de SST
+                    Conhecer soluções em SST
                   </a>
                 </div>
               </Reveal>
