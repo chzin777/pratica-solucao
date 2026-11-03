@@ -382,8 +382,7 @@ export default function Home() {
             <div className="pointer-events-none absolute left-1/2 top-0 hidden h-full w-px -translate-x-1/2 bg-gradient-to-b from-transparent via-white/20 to-transparent md:block" aria-hidden="true" />
 
             {/* SEM */}
-            <Reveal direction="right">
-              <div className="flex h-full flex-col rounded-2xl border border-white/10 bg-white/[0.04] p-6 sm:p-8">
+            <div className="flex h-full flex-col rounded-2xl border border-white/10 bg-white/[0.04] p-6 sm:p-8">
                 <h3 className="flex items-center gap-2 text-lg font-semibold text-rose-200">
                   <span className="flex h-7 w-7 items-center justify-center rounded-full bg-rose-400/20">
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" className="h-4 w-4" aria-hidden="true">
@@ -403,10 +402,7 @@ export default function Home() {
                   ))}
                 </ul>
               </div>
-            </Reveal>
-
             {/* COM */}
-            <Reveal direction="left">
               <div className="flex h-full flex-col rounded-2xl border border-[#7fb2d8]/40 bg-[#7fb2d8]/10 p-6 shadow-lg shadow-black/20 sm:p-8">
                 <h3 className="flex items-center gap-2 text-lg font-semibold text-[#9ecbe8]">
                   <span className="flex h-7 w-7 items-center justify-center rounded-full bg-[#7fb2d8]/30">
@@ -427,7 +423,6 @@ export default function Home() {
                   ))}
                 </ul>
               </div>
-            </Reveal>
           </div>
 
           <Reveal delay={0.2}>
