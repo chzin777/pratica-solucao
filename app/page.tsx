@@ -360,7 +360,7 @@ export default function Home() {
       {/* COMPARATIVO */}
       <section className="bg-brand-deep py-20 text-white sm:py-24">
         <div className="mx-auto max-w-7xl px-5 sm:px-6">
-          <div className="mx-auto max-w-2xl text-center">
+          <div className="mx-auto max-w-3xl text-center">
             <SplitText
               text="A diferença no dia a dia"
               tag="h2"
@@ -377,7 +377,7 @@ export default function Home() {
             </Reveal>
           </div>
 
-          <div className="relative mt-12 grid gap-5 sm:mt-16 md:grid-cols-2 md:gap-0">
+          <div className="relative mt-12 grid items-stretch sm:mt-16 md:grid-cols-2 md:gap-0">
             {/* Divisor central */}
             <div className="pointer-events-none absolute left-1/2 top-0 hidden h-full w-px -translate-x-1/2 bg-gradient-to-b from-transparent via-white/20 to-transparent md:block" aria-hidden="true" />
 
