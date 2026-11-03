@@ -398,8 +398,13 @@ export default function EstagioSection() {
             <div className="pe-grid">
               <div className="pe-info">
                 <span className="pe-badge">Cadastro 100% gratuito</span>
-                <h3>Cadastre-se e concorra a vagas</h3>
-                <p>Preencha o formulário ao lado. Quando surgir uma vaga compatível com o seu perfil, chamamos você no WhatsApp.</p>
+                <h3>Quero me candidatar a vagas de estágio</h3>
+                <p>Cadastre-se uma vez e concorra às vagas que a Prática divulga para empresas de Goiânia e região. Você não paga nada.</p>
+                <ul className="pe-checks">
+                  <li>Vagas compatíveis com o seu curso e horário das aulas</li>
+                  <li>Contrato dentro da Lei do Estágio, com seguro e recesso garantidos</li>
+                  <li>Acompanhamento da Prática do início ao fim do estágio</li>
+                </ul>
               </div>
 
               <div className="pe-card">
