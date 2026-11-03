@@ -162,112 +162,97 @@ export default function EstagioPage() {
 
       {/* HERO */}
       <section className="relative flex min-h-screen items-center overflow-hidden bg-[#0D243B] text-white">
-        {/* Background decorativo no hero */}
+        {/* Background decorativo */}
         <div className="pointer-events-none absolute inset-0 -z-0 overflow-hidden" aria-hidden="true">
-          <div className="absolute -right-40 -top-40 h-[600px] w-[600px] rounded-full bg-[#87B1D7]/10 blur-3xl" />
-          <div className="absolute -left-20 bottom-0 h-[400px] w-[400px] rounded-full bg-[#1FAF5A]/8 blur-3xl" />
-          <div className="absolute right-1/4 top-1/3 h-64 w-64 rounded-full border border-white/5" />
-          <div className="absolute left-10 top-20 h-32 w-32 rounded-full border border-[#87B1D7]/10" />
-          <div className="absolute inset-x-0 bottom-0 h-32 bg-gradient-to-t from-[#0D243B]" />
+          <div className="absolute -right-60 -top-60 h-[700px] w-[700px] rounded-full bg-[#87B1D7]/8 blur-3xl" />
+          <div className="absolute -left-40 bottom-0 h-[500px] w-[500px] rounded-full bg-[#1FAF5A]/6 blur-3xl" />
+          <div className="absolute right-1/3 top-1/4 h-80 w-80 rounded-full border border-white/[0.03]" />
+          <div className="absolute left-20 top-32 h-40 w-40 rounded-full border border-[#87B1D7]/[0.06]" />
+          <div className="absolute inset-x-0 bottom-0 h-40 bg-gradient-to-t from-[#0D243B] via-[#0D243B]/60 to-transparent" />
         </div>
-        <div className="relative mx-auto w-full max-w-6xl px-5 py-32 sm:px-6">
-          <div className="grid items-center gap-12 lg:grid-cols-2">
-            <div className="flex flex-col gap-6">
+
+        <div className="relative z-10 mx-auto w-full max-w-7xl px-5 py-32 sm:px-6">
+          <div className="grid items-center gap-10 lg:grid-cols-2 lg:gap-16">
+            {/* Conteúdo esquerdo */}
+            <div className="flex flex-col gap-7">
               <Reveal direction="down">
-                <p className="text-sm font-bold uppercase tracking-[0.12em] text-[#87B1D7]">
+                <span className="inline-flex items-center gap-2 rounded-full border border-[#87B1D7]/30 bg-[#87B1D7]/10 px-4 py-1.5 text-xs font-bold uppercase tracking-[0.14em] text-[#87B1D7]">
+                  <span className="h-1.5 w-1.5 rounded-full bg-[#87B1D7]" aria-hidden="true" />
                   Programa de Estágio
-                </p>
+                </span>
               </Reveal>
+
               <SplitText
                 text="Estágio sem burocracia, do anúncio ao contrato"
                 tag="h1"
                 textAlign="left"
-                className="text-4xl font-extrabold leading-tight tracking-tight sm:text-5xl"
+                className="text-4xl font-extrabold leading-[1.1] tracking-tight sm:text-5xl lg:text-6xl"
                 splitType="words"
                 delay={25}
                 duration={0.7}
               />
+
               <Reveal delay={0.15}>
-                <p className="max-w-xl text-lg text-[#B9CBDD]">
+                <p className="max-w-lg text-lg leading-relaxed text-[#B9CBDD] sm:text-xl">
                   Simplificamos o estágio para empresas e estudantes.
-                  Anunciamos a vaga e fazemos toda a integração entre
-                  estudante, empresa e instituição de ensino, além da
-                  gestão completa do seguro, dos contratos e do recesso.
+                  Anunciamos a vaga, fazemos a integração com a instituição
+                  de ensino e cuidamos de toda a gestão do contrato, seguro e recesso.
                 </p>
               </Reveal>
+
               <Reveal delay={0.25}>
-                <div className="flex flex-wrap gap-3 pt-2">
+                <div className="flex flex-wrap gap-4 pt-1">
                   <a
                     href={WHATSAPP_ESTAGIO}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-flex h-12 items-center justify-center rounded-lg bg-[#87B1D7] px-6 text-sm font-bold uppercase tracking-wide text-[#0D243B] transition-colors hover:bg-[#a3c5e3]"
+                    className="inline-flex h-14 items-center justify-center rounded-full bg-[#87B1D7] px-8 text-sm font-bold uppercase tracking-wide text-[#0D243B] transition-all hover:bg-[#a3c5e3] hover:shadow-lg hover:shadow-[#87B1D7]/25"
                   >
                     Quero contratar estagiário
                   </a>
                   <a
                     href="#formularios"
-                    className="inline-flex h-12 items-center justify-center rounded-lg border border-[#244563] px-6 text-sm font-bold uppercase tracking-wide text-white transition-colors hover:border-[#87B1D7] hover:text-[#87B1D7]"
+                    className="inline-flex h-14 items-center justify-center rounded-full border border-white/20 px-8 text-sm font-bold uppercase tracking-wide text-white transition-all hover:border-white/50 hover:bg-white/5"
                   >
                     Sou estudante
                   </a>
                 </div>
               </Reveal>
+
+              {/* Mini badges de confiança */}
+              <Reveal delay={0.35}>
+                <div className="flex flex-wrap gap-x-6 gap-y-2 pt-4 text-xs font-medium text-[#B9CBDD]/70">
+                  <span className="flex items-center gap-1.5">
+                    <svg className="h-4 w-4 text-emerald-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" /></svg>
+                    Lei 11.788/2008
+                  </span>
+                  <span className="flex items-center gap-1.5">
+                    <svg className="h-4 w-4 text-emerald-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" /></svg>
+                    Seguro obrigatório incluso
+                  </span>
+                  <span className="flex items-center gap-1.5">
+                    <svg className="h-4 w-4 text-emerald-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" /></svg>
+                    Gestão completa do recesso
+                  </span>
+                </div>
+              </Reveal>
             </div>
 
+            {/* GIF lado direito */}
             <Reveal direction="left" delay={0.2}>
-              <div className="overflow-hidden rounded-xl border border-[#244563] bg-[#14314F] p-6 shadow-2xl">
-                <div className="mb-5 flex items-start justify-between gap-3">
-                  <div>
-                    <span className="text-xs font-bold uppercase tracking-widest text-[#87B1D7]">
-                      Lei 11.788/2008
-                    </span>
-                    <p className="mt-1 text-xl font-extrabold text-white">
-                      Estágio regularizado
-                    </p>
-                  </div>
-                  <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-white/10 text-white">
-                    <svg
-                      className="h-6 w-6"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                      stroke="currentColor"
-                      strokeWidth={2}
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"
-                      />
-                    </svg>
-                  </div>
+              <div className="relative mx-auto max-w-lg lg:max-w-none">
+                {/* Glow atrás do GIF */}
+                <div className="absolute -inset-4 rounded-3xl bg-gradient-to-br from-[#87B1D7]/20 via-[#87B1D7]/10 to-transparent blur-2xl" aria-hidden="true" />
+                <div className="relative overflow-hidden rounded-2xl border border-white/10 shadow-2xl shadow-black/40">
+                  <img
+                    src="https://cdn.dribbble.com/userupload/32144834/file/original-1f3c6796fbe16ccabe3f07be227f51d9.gif"
+                    alt="Ilustração animada de estágio e contratação"
+                    className="w-full object-cover"
+                    loading="eager"
+                  />
+                  {/* Overlay sutil para harmonizar com o tema escuro */}
+                  <div className="pointer-events-none absolute inset-0 bg-[#0D243B]/10" aria-hidden="true" />
                 </div>
-                <ul className="space-y-3 text-sm text-[#B9CBDD]">
-                  {[
-                    "Termo de Compromisso (TCE) assinado pelas três partes",
-                    "Seguro obrigatório contra acidentes pessoais",
-                    "Jornada de até 6h/dia e 30h/semana",
-                    "Recesso de 30 dias a cada 12 meses",
-                    "Sem FGTS, 13º ou INSS patronal sobre a bolsa",
-                  ].map((item) => (
-                    <li key={item} className="flex gap-3">
-                      <svg
-                        className="mt-0.5 h-5 w-5 shrink-0 text-emerald-400"
-                        fill="none"
-                        viewBox="0 0 24 24"
-                        stroke="currentColor"
-                        strokeWidth={2}
-                      >
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          d="M5 13l4 4L19 7"
-                        />
-                      </svg>
-                      <span>{item}</span>
-                    </li>
-                  ))}
-                </ul>
               </div>
             </Reveal>
           </div>
