@@ -304,7 +304,7 @@ export default function Home() {
               <Reveal key={s.title} delay={i * 0.08}>
                 <div className="group relative flex h-full flex-col overflow-hidden rounded-3xl border border-slate-200/80 bg-white p-7 shadow-[0_18px_45px_-28px_rgba(13,36,59,0.18)] transition-all duration-300 hover:-translate-y-1 hover:border-brand/40 hover:shadow-[0_28px_60px_-30px_rgba(13,36,59,0.28)] sm:p-9">
                   <div className="absolute inset-x-0 top-0 h-1.5 bg-gradient-to-r from-brand via-[#87B1D7] to-brand opacity-0 transition-opacity duration-300 group-hover:opacity-100" aria-hidden="true" />
-                  <div className="mb-5 inline-flex h-12 w-12 items-center justify-center rounded-2xl bg-brand/10 text-brand transition-colors group-hover:bg-brand group-hover:text-white">
+                  <div className="mb-5 inline-flex h-12 w-12 items-center justify-center rounded-2xl bg-brand/10 text-brand">
                     <Check />
                   </div>
                   <h3 className="text-xl font-bold text-brand-deep sm:text-2xl">
