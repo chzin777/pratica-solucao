@@ -407,7 +407,7 @@ export default function EstagioSection() {
                 </ul>
               </div>
 
-              <div className="pe-card">
+              <div className="pe-card min-h-[520px]">
                 {enviado && (
                   <div className="pe-alert" role="status">
                     <strong>Cadastro enviado com sucesso!</strong>
@@ -591,7 +591,7 @@ export default function EstagioSection() {
                 </ul>
               </div>
 
-              <div className="pe-card">
+              <div className="pe-card min-h-[520px]">
                 <h3 className="pe-form-title">Quero contratar estagiários</h3>
                 <p className="pe-form-sub">Preencha e fale direto com a gente no WhatsApp, com a mensagem já pronta.</p>
 
