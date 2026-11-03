@@ -359,7 +359,7 @@ export default function Home() {
 
       {/* COMPARATIVO */}
       <section className="bg-brand-deep py-20 text-white sm:py-24">
-        <div className="mx-auto max-w-5xl px-5 sm:px-6">
+        <div className="mx-auto max-w-7xl px-5 sm:px-6">
           <div className="mx-auto max-w-2xl text-center">
             <SplitText
               text="A diferença no dia a dia"
@@ -383,7 +383,7 @@ export default function Home() {
 
             {/* SEM */}
             <Reveal direction="right">
-              <div className="h-full rounded-2xl border border-white/10 bg-white/[0.04] p-6 sm:p-8 md:mr-6">
+              <div className="flex h-full flex-col rounded-2xl border border-white/10 bg-white/[0.04] p-6 sm:p-8">
                 <h3 className="flex items-center gap-2 text-lg font-semibold text-rose-200">
                   <span className="flex h-7 w-7 items-center justify-center rounded-full bg-rose-400/20">
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" className="h-4 w-4" aria-hidden="true">
@@ -407,7 +407,7 @@ export default function Home() {
 
             {/* COM */}
             <Reveal direction="left">
-              <div className="h-full rounded-2xl border border-[#7fb2d8]/40 bg-[#7fb2d8]/10 p-6 shadow-lg shadow-black/20 sm:p-8 md:ml-6">
+              <div className="flex h-full flex-col rounded-2xl border border-[#7fb2d8]/40 bg-[#7fb2d8]/10 p-6 shadow-lg shadow-black/20 sm:p-8">
                 <h3 className="flex items-center gap-2 text-lg font-semibold text-[#9ecbe8]">
                   <span className="flex h-7 w-7 items-center justify-center rounded-full bg-[#7fb2d8]/30">
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="h-4 w-4" aria-hidden="true">
