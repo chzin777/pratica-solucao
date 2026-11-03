@@ -6,7 +6,7 @@ import { useState } from "react";
 import { AnimatePresence, motion } from "motion/react";
 
 const NAV = [
-  { href: "/#home", label: "HOME" },
+  { href: "/#home", label: "INÍCIO" },
   { href: "/#servicos", label: "SERVIÇOS" },
   { href: "/#solucoes", label: "SOLUÇÕES" },
   { href: "/calculadoras", label: "CALCULADORAS" },
