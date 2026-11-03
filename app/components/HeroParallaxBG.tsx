@@ -98,6 +98,12 @@ export function HeroParallaxBG({
         backgroundImage: `linear-gradient(to bottom right, ${gradientFrom}, ${gradientVia}, ${gradientTo})`,
       }}
     >
+      {/* Imagem de fundo sutil */}
+      <div
+        className="absolute inset-0 bg-cover bg-center opacity-10"
+        style={{ backgroundImage: "url(/hero-bg.jpg)" }}
+      />
+
       <div className="absolute inset-0 bg-gradient-to-br from-[#04355a]/40 via-transparent to-[#021c30]/50 blur-3xl" />
 
       {/* Formas geométricas com parallax */}
