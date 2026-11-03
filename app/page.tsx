@@ -3,7 +3,6 @@ import Image from "next/image";
 import Header from "./Header";
 import SplitText from "./components/SplitText";
 import Reveal from "./components/Reveal";
-import CountUp from "./components/CountUp";
 import HeroGeometric from "./components/HeroGeometric";
 import { Testimonials, type Testimonial } from "./components/Testimonials";
 import SiteFooter from "./components/SiteFooter";
@@ -219,29 +218,6 @@ export default function Home() {
 
       {/* HERO */}
       <HeroGeometric />
-
-      {/* MÉTRICAS */}
-      <section className="bg-brand-deep text-white">
-        <div className="mx-auto grid max-w-6xl grid-cols-3 gap-4 px-5 py-12 text-center sm:gap-8 sm:px-6 sm:py-16">
-          {[
-            { to: 6, suffix: "+", label: "Soluções empresariais" },
-            { to: 3, suffix: "", label: "Áreas de atuação" },
-            { to: 100, suffix: "%", label: "Atendimento online" },
-          ].map((m, i) => (
-            <Reveal key={m.label} delay={i * 0.1}>
-              <div>
-                <p className="text-3xl font-bold text-white sm:text-5xl">
-                  <CountUp to={m.to} duration={1.5} />
-                  {m.suffix}
-                </p>
-                <p className="mt-2 text-[11px] font-medium uppercase tracking-wide text-sky-200 sm:text-sm sm:tracking-widest">
-                  {m.label}
-                </p>
-              </div>
-            </Reveal>
-          ))}
-        </div>
-      </section>
 
       {/* DIFERENCIAIS */}
       <section className="relative overflow-hidden py-20 sm:py-24">
