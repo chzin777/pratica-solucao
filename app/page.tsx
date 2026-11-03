@@ -358,9 +358,9 @@ export default function Home() {
       </section>
 
       {/* COMPARATIVO */}
-      <section className="bg-brand-deep py-20 text-white sm:py-24">
+      <section className="bg-brand-deep text-white">
         <div className="mx-auto max-w-7xl px-5 sm:px-6">
-          <div className="mx-auto max-w-3xl text-center">
+          <div className="mx-auto max-w-3xl pt-20 pb-12 text-center sm:pt-24 sm:pb-16">
             <SplitText
               text="A diferença no dia a dia"
               tag="h2"
@@ -377,52 +377,53 @@ export default function Home() {
             </Reveal>
           </div>
 
-          <div className="relative mt-12 grid items-stretch sm:mt-16 md:grid-cols-2 md:gap-0">
+          <div className="relative grid min-h-[500px] md:grid-cols-2">
             {/* Divisor central */}
             <div className="pointer-events-none absolute left-1/2 top-0 hidden h-full w-px -translate-x-1/2 bg-gradient-to-b from-transparent via-white/20 to-transparent md:block" aria-hidden="true" />
 
             {/* SEM */}
-            <div className="flex h-full flex-col rounded-2xl border border-white/10 bg-white/[0.04] p-6 sm:p-8">
-                <h3 className="flex items-center gap-2 text-lg font-semibold text-rose-200">
-                  <span className="flex h-7 w-7 items-center justify-center rounded-full bg-rose-400/20">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" className="h-4 w-4" aria-hidden="true">
+            <div className="flex min-h-full flex-col rounded-l-2xl border border-white/10 bg-white/[0.04] p-8 sm:p-12 md:border-r-0 md:rounded-r-none">
+              <h3 className="flex items-center gap-2 text-lg font-semibold text-rose-200">
+                <span className="flex h-7 w-7 items-center justify-center rounded-full bg-rose-400/20">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" className="h-4 w-4" aria-hidden="true">
+                    <path d="M18 6 6 18M6 6l12 12" />
+                  </svg>
+                </span>
+                Sem a Prática
+              </h3>
+              <ul className="mt-5 space-y-3">
+                {COMPARATIVO.sem.map((t) => (
+                  <li key={t} className="flex gap-3 text-sm text-sky-100/70">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" className="mt-0.5 h-4 w-4 shrink-0 text-rose-300/70" aria-hidden="true">
                       <path d="M18 6 6 18M6 6l12 12" />
                     </svg>
-                  </span>
-                  Sem a Prática
-                </h3>
-                <ul className="mt-5 space-y-3">
-                  {COMPARATIVO.sem.map((t) => (
-                    <li key={t} className="flex gap-3 text-sm text-sky-100/70">
-                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" className="mt-0.5 h-4 w-4 shrink-0 text-rose-300/70" aria-hidden="true">
-                        <path d="M18 6 6 18M6 6l12 12" />
-                      </svg>
-                      <span>{t}</span>
-                    </li>
-                  ))}
-                </ul>
-              </div>
+                    <span>{t}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+
             {/* COM */}
-              <div className="flex h-full flex-col rounded-2xl border border-[#7fb2d8]/40 bg-[#7fb2d8]/10 p-6 shadow-lg shadow-black/20 sm:p-8">
-                <h3 className="flex items-center gap-2 text-lg font-semibold text-[#9ecbe8]">
-                  <span className="flex h-7 w-7 items-center justify-center rounded-full bg-[#7fb2d8]/30">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="h-4 w-4" aria-hidden="true">
+            <div className="flex min-h-full flex-col rounded-r-2xl border border-[#7fb2d8]/40 bg-[#7fb2d8]/10 p-8 shadow-lg shadow-black/20 sm:p-12 md:border-l-0 md:rounded-l-none">
+              <h3 className="flex items-center gap-2 text-lg font-semibold text-[#9ecbe8]">
+                <span className="flex h-7 w-7 items-center justify-center rounded-full bg-[#7fb2d8]/30">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="h-4 w-4" aria-hidden="true">
+                    <path d="M20 6 9 17l-5-5" />
+                  </svg>
+                </span>
+                Com a Prática
+              </h3>
+              <ul className="mt-5 space-y-3">
+                {COMPARATIVO.com.map((t) => (
+                  <li key={t} className="flex gap-3 text-sm text-white">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="mt-0.5 h-4 w-4 shrink-0 text-[#7fb2d8]" aria-hidden="true">
                       <path d="M20 6 9 17l-5-5" />
                     </svg>
-                  </span>
-                  Com a Prática
-                </h3>
-                <ul className="mt-5 space-y-3">
-                  {COMPARATIVO.com.map((t) => (
-                    <li key={t} className="flex gap-3 text-sm text-white">
-                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="mt-0.5 h-4 w-4 shrink-0 text-[#7fb2d8]" aria-hidden="true">
-                        <path d="M20 6 9 17l-5-5" />
-                      </svg>
-                      <span>{t}</span>
-                    </li>
-                  ))}
-                </ul>
-              </div>
+                    <span>{t}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
           </div>
 
           <Reveal delay={0.2}>
