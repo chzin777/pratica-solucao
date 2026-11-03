@@ -194,9 +194,7 @@ export default function EstagioPage() {
 
               <Reveal delay={0.15}>
                 <p className="max-w-lg text-lg leading-relaxed text-[#B9CBDD] sm:text-xl">
-                  Simplificamos o estágio para empresas e estudantes.
-                  Anunciamos a vaga, fazemos a integração com a instituição
-                  de ensino e cuidamos de toda a gestão do contrato, seguro e recesso.
+                  Do anúncio ao contrato assinado: seleção, seguro, integração e gestão completa do recesso.
                 </p>
               </Reveal>
 
