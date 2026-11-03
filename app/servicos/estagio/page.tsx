@@ -161,7 +161,7 @@ export default function EstagioPage() {
       <Header />
 
       {/* HERO */}
-      <section className="relative overflow-hidden bg-[#0D243B] pt-32 pb-20 text-white sm:pt-40 sm:pb-28">
+      <section className="relative flex min-h-screen items-center overflow-hidden bg-[#0D243B] text-white">
         {/* Background decorativo no hero */}
         <div className="pointer-events-none absolute inset-0 -z-0 overflow-hidden" aria-hidden="true">
           <div className="absolute -right-40 -top-40 h-[600px] w-[600px] rounded-full bg-[#87B1D7]/10 blur-3xl" />
@@ -170,7 +170,7 @@ export default function EstagioPage() {
           <div className="absolute left-10 top-20 h-32 w-32 rounded-full border border-[#87B1D7]/10" />
           <div className="absolute inset-x-0 bottom-0 h-32 bg-gradient-to-t from-[#0D243B]" />
         </div>
-        <div className="relative mx-auto max-w-6xl px-5 sm:px-6">
+        <div className="relative mx-auto w-full max-w-6xl px-5 py-32 sm:px-6">
           <div className="grid items-center gap-12 lg:grid-cols-2">
             <div className="flex flex-col gap-6">
               <Reveal direction="down">
